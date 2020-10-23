@@ -1,6 +1,6 @@
 language: php
 php:
-    - '7.2'
+    - '7.4'
 before_install:
     - if [ -d "./.idea" ]; then echo "Forbidden idea folder found ! Please, ignore them globaly..."; exit 2; fi
     - if [ -d "./.vscode" ]; then echo "Forbidden vscode folder found ! Please, ignore them globaly..."; exit 2; fi
@@ -14,8 +14,11 @@ script:
     - ./vendor/bin/phpmd src text phpmd.xml
 notifications:
     email:
-        - TRAINER@wildcodeschool.fr
-        - STUDENT_MAIL
+        - romain.clair@wildcodeschool.com
+        - thocle86@gmail.com 
+        - auneau.maxime@gmail.com
+        - achillebellay@gmail.com
+        - kevin.francisco@hotmail.fr
 branches:
     only:
         - master
