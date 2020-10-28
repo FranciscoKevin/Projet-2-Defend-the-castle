@@ -29,11 +29,7 @@ class TroopManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    /**
-     * @param  $troop
-     * @return int
-     */
-    public function insert(troop $troop): int
+    public function insert(Troop $troop): int
     {
         // prepared request
         $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, strength) VALUES (:name, :strength)");
@@ -45,30 +41,10 @@ class TroopManager extends AbstractManager
         }
     }
 
-
-    /**
-     * @param
-     */
     public function delete(): void
     {
         // prepared request
         $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
         $truncate->execute();
-    }
-
-
-    /**
-     * @param array $item
-     * @return bool
-     */
-    public function update(array $item):bool
-    {
-
-        // prepared request
-        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `title` = :title WHERE id=:id");
-        $statement->bindValue('id', $item['id'], PDO::PARAM_INT);
-        $statement->bindValue('title', $item['title'], PDO::PARAM_STR);
-
-        return $statement->execute();
     }
 }
