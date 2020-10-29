@@ -1,9 +1,0 @@
-{% extends 'layout.html.twig' %}
-
-{% block content %}
-    <h1>Initialisation de la partie</h1>
-    {% for soldier in troops %}
-        <p>{{ soldier.name }} = {{ soldier.strength }}</p>
-    {% endfor %}
-    <a href="/game/init">Initialiser</a>
-{% endblock %}
