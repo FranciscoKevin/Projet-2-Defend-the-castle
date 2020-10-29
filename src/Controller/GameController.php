@@ -10,38 +10,42 @@ namespace App\Controller;
 
 use App\Model\Troop;
 use App\Model\TroopManager;
-use App\Model\CastleManager;
-use App\Model\Castle;
 
 class GameController extends AbstractController
 {
-    public function delete()
+    private $troopManager;
+
+    public function __construct()
     {
-        $itemManager = new TroopManager();
-        $itemManager->delete();
-        header('Location:/game/init');
+        parent::__construct();
+        $this->troopManager = new TroopManager();
     }
 
     public function init(): string
     {
-        $manager = new TroopManager();
-        $archer = new Troop();
-        $archer->setName("Archer");
-        $archer->setRandomLevel();
-        $manager->insert($archer);
+        $this->troopManager->delete();
+        $troops[0] = new Troop();
+        $troops[0]->setName("Archer");
+        $troops[0]->setRandomLevel();
         //-------------------------------------Horseman------------------------------------
-        $horseman = new Troop();
-        $horseman->setName("Horseman");
-        $horseman->setRandomLevel();
-        $manager->insert($horseman);
+        $troops[1] = new Troop();
+        $troops[1]->setName("Horseman");
+        $troops[1]->setRandomLevel();
         //-------------------------------------Lancer------------------------------------
-        $lancer = new Troop();
-        $lancer->setName("Lancer");
-        $lancer->setRandomLevel();
-        $manager->insert($lancer);
+        $troops[2] = new Troop();
+        $troops[2]->setName("Lancer");
+        $troops[2]->setRandomLevel();
+        shuffle($troops);
+        foreach ($troops as $troop) {
+            $this->troopManager->insert($troop);
+        }
+        header('Location: /game/play');
+        return "";
+    }
 
-        $random = [$archer, $horseman, $lancer];
-
-        return $this->twig->render("Game/init.html.twig", ["troop" => $random]);
+    public function play():string
+    {
+        $troops = $this->troopManager->selectAll();
+        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops]);
     }
 }
