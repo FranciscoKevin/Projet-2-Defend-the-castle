@@ -1,10 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: sylvain
- * Date: 07/03/18
- * Time: 18:20
- * PHP version 7
+ * User: Max
+ * Date: 26/10/20
+ * Time: 9:00
  */
 
 namespace App\Model;
@@ -20,6 +19,7 @@ class TroopManager extends AbstractManager
      *
      */
     const TABLE = 'troop';
+    const ERROR = -1;
 
     /**
      *  Initializes this class.
@@ -29,21 +29,32 @@ class TroopManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function insert(Troop $troop): int
+   
+    public function insert(Troop $troop)
     {
         // prepared request
-            $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, strength) VALUES (:name, :strength)");
-            $insert->bindValue('name', $troop->getName(), PDO::PARAM_STR);
-            $insert->bindValue('strength', $troop->getLevel(), PDO::PARAM_INT);
-        if ($insert->execute()) {
-            return (int)$this->pdo->lastInsertId();
+        $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, strength) VALUES (:name, :strength)");
+        if ((false == $insert)
+            || (false == $insert->bindValue('name', $troop->getName(), PDO::PARAM_STR))
+            || (false == $insert->bindValue('strength', $troop->getLevel(), PDO::PARAM_INT))) {
+                return self::ERROR;
+        } else {
+            if ($insert->execute()) {
+                return (int)$this->pdo->lastInsertId();
+            }
         }
+        return "";
     }
 
-    public function delete(): void
+    public function deleteAll()
     {
         // prepared request
         $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
-        $truncate->execute();
+        if (false == $truncate) {
+            return self::ERROR;
+        } else {
+            $truncate->execute();
+        }
+        return "";
     }
 }

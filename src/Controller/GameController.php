@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: aurelwcs
- * Date: 08/04/19
- * Time: 18:40
+ * User: Max
+ * Date: 26/10/20
+ * Time: 9:00
  */
 
 namespace App\Controller;
@@ -23,11 +23,15 @@ class GameController extends AbstractController
 
     public function init(): string
     {
-        $this->troopManager->delete();
+        if (false === $this->troopManager->deleteAll()) {
+            header("HTTP/1.0 404 Not Found");
+            echo '404 - Page not found';
+        }
+        //-------------------------------------Archer------------------------------------
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
         $troops[0]->setRandomLevel();
-        //-------------------------------------Horseman------------------------------------
+        //-------------------------------------Horseman----------------------------------
         $troops[1] = new Troop();
         $troops[1]->setName("Horseman");
         $troops[1]->setRandomLevel();
@@ -36,8 +40,13 @@ class GameController extends AbstractController
         $troops[2]->setName("Lancer");
         $troops[2]->setRandomLevel();
         shuffle($troops);
+
+
         foreach ($troops as $troop) {
-            $this->troopManager->insert($troop);
+            if (false === $this->troopManager->insert($troop)) {
+                header("HTTP/1.0 404 Not Found");
+                echo '404 - Page not found';
+            }
         }
         header('Location: /game/play');
         return "";

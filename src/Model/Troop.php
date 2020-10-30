@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Max
+ * Date: 26/10/20
+ * Time: 9:00
+ */
 
 namespace App\Model;
 
