@@ -137,4 +137,11 @@ body {
         justify-content: center;
         align-items: center;
     }
+
+    .player {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 }
