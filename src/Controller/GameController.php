@@ -10,51 +10,74 @@ namespace App\Controller;
 
 use App\Model\Troop;
 use App\Model\TroopManager;
+use App\Model\Castle;
+use App\Model\CastleManager;
 
 class GameController extends AbstractController
 {
     private $troopManager;
+    private $castleManager;
 
     public function __construct()
     {
         parent::__construct();
         $this->troopManager = new TroopManager();
+        $this->castleManager = new CastleManager();
     }
 
     public function init(): string
     {
+        // Check if access to the database and data deletion
         if (false === $this->troopManager->deleteAll()) {
             header("HTTP/1.0 404 Not Found");
             echo '404 - Page not found';
         }
-        //-------------------------------------Archer------------------------------------
+        // Creation of troops with their random level
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
         $troops[0]->setRandomLevel();
-        //-------------------------------------Horseman----------------------------------
         $troops[1] = new Troop();
         $troops[1]->setName("Horseman");
         $troops[1]->setRandomLevel();
-        //-------------------------------------Lancer------------------------------------
         $troops[2] = new Troop();
         $troops[2]->setName("Lancer");
         $troops[2]->setRandomLevel();
         shuffle($troops);
 
-
+        // Insertion of troops in the database
         foreach ($troops as $troop) {
+            //Check if access to the database
             if (false === $this->troopManager->insert($troop)) {
                 header("HTTP/1.0 404 Not Found");
                 echo '404 - Page not found';
             }
         }
+
+        // Check if access to the database and data deletion
+        if (false === $this->castleManager->deleteAll()) {
+            header("HTTP/1.0 404 Not Found");
+            echo '404 - Page not found';
+        }
+        // Creation of castle
+        $castle = new Castle();
+        $castle->setName("|||_|||_|||_DEFEND THE CASTLE_|||_|||_|||");
+        $castle->setScore();
+
+        // Insertion of castle in the database
+        if (false === $this->castleManager->insert($castle)) {
+            header("HTTP/1.0 404 Not Found");
+            echo '404 - Page not found';
+        }
+
+        // Redirection after initialization
         header('Location: /game/play');
         return "";
     }
 
     public function play():string
     {
+        $castle = $this->castleManager->selectAll();
         $troops = $this->troopManager->selectAll();
-        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops]);
+        return $this->twig->render("Game/troop.html.twig", ["castle" => $castle, "troops" => $troops]);
     }
 }

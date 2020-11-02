@@ -2,6 +2,10 @@
 
 {% block content %}
     <h1>Initialisation de la partie</h1>
+    {% for properties in castle %}
+        <h2>{{ properties.name }}</h2>
+        <h3>Score château: {{ properties.score }}</h3>
+    {% endfor %}
     {% for soldier in troops %}
         <p>{{ soldier.name }} = {{ soldier.strength }}</p>
     {% endfor %}
