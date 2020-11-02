@@ -1,9 +1,34 @@
 {% extends 'layout.html.twig' %}
-
 {% block content %}
-    <h1>Initialisation de la partie</h1>
-    {% for soldier in troops %}
-        <p>{{ soldier.name }} = {{ soldier.strength }}</p>
-    {% endfor %}
-    <a href="/game/init">Initialiser</a>
+    <div class="header">
+        <div class="container_score">
+            <div class="castle">
+                <span>Castle Score :</span>
+            </div>
+            <div class="player">
+                {% for soldier in troops %}
+                    <p>{{ soldier.name }} = {{ soldier.strength }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="ennemy-card">
+            <img src="/assets/images/Archer.png" class="img-card" alt="ennemy">
+        </div>
+        <div class="container_button">
+            <a class="button" href="/game/init">Restart</a>
+        </div>
+    </div>
+
+    <div class="container-card">
+        <div class="player-card">
+            <img src="/assets/images/knight.png" class="img-card" alt="archer">
+        </div>
+        <div class="player-card">
+            <img src="/assets/images/Horseman.png" class="img-card" alt="archer">
+        </div>
+        <div class="player-card">
+            <img src="/assets/images/Archer.png" class="img-card" alt="archer">
+        </div>
+    </div>
 {% endblock %}
+
