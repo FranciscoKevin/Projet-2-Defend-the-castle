@@ -43,7 +43,7 @@ class Troop
         $this->level = random_int(self::LEVEL_MIN, self::LEVEL_MAX);
     }
 
-    public function setLevel(int $level): void 
+    public function setLevel(int $level): void
     {
         $this->level = $level;
     }
@@ -60,7 +60,7 @@ class Troop
 
     public function setRandomName(): void
     {
-        $this->name = self::NAMES[random_int(0,2)];
+        $this->name = self::NAMES[random_int(0, 2)];
     }
 
     public function getName():string

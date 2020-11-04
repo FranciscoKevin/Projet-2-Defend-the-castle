@@ -32,7 +32,7 @@ class GameController extends AbstractController
             echo '404 - Page not found';
         }
 
-        if (false === $this->enemyManager->deleteAttacker()){
+        if (false === $this->enemyManager->deleteAttacker()) {
             header("HTTP/1.0 404 Not Found");
             echo '404 - Page not found';
         }
@@ -77,9 +77,8 @@ class GameController extends AbstractController
                 return "";
             }
             $enemy->setId($id);
-        }           
+        }
             $troops = $this->troopManager->selectAll();
             return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy]);
-        }
-        
     }
+}

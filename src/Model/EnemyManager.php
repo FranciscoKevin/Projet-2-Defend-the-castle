@@ -32,7 +32,8 @@ class EnemyManager extends AbstractManager
     public function insertEnemy(Troop $enemy): int
     {
         // prepared request
-        $insertEnemy = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, strength) VALUES (:name, :strength)");
+        $insertEnemy = $this->pdo->prepare("INSERT INTO " . self::TABLE .
+            " (name, strength) VALUES (:name, :strength)");
         if ((false == $insertEnemy)
             || (false == $insertEnemy->bindValue('name', $enemy->getName(), PDO::PARAM_STR))
             || (false == $insertEnemy->bindValue('strength', $enemy->getLevel(), PDO::PARAM_INT))) {
@@ -59,7 +60,7 @@ class EnemyManager extends AbstractManager
     public function selectCurrent() : ?Troop
     {
         $troops = $this->selectAll();
-        if(empty($troops)) {
+        if (empty($troops)) {
             return null;
         }
         $troop = new Troop();
@@ -67,7 +68,5 @@ class EnemyManager extends AbstractManager
         $troop->setName($troops[0]['name']);
         $troop->setLevel($troops[0]['strength']);
         return $troop;
-
     }
 }
-
