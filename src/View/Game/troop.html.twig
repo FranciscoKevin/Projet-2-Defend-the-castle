@@ -4,10 +4,8 @@
         <h1>Initialisation de la partie</h1>
         <div class="container_score">
             <div class="castle">
-            {% for properties in castle %}
-                <h2>{{ properties.name }}</h2>
-                <h3>Score château: {{ properties.score }}</h3>
-            {% endfor %}
+                <h2>{{ castle.name }}</h2>
+                <h3>Score château: {{ castle.score }}</h3>
             </div>
             <div class="player">
                 {% for soldier in troops %}

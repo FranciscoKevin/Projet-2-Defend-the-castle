@@ -29,8 +29,8 @@ class GameController extends AbstractController
     {
         // Check if access to the database and data deletion
         if (false === $this->troopManager->deleteAll()) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+            header("HTTP/1.1 503 Service Unavailable");
+            echo '503 - Service Unavailable';
         }
         // Creation of troops with their random level
         $troops[0] = new Troop();
@@ -48,15 +48,15 @@ class GameController extends AbstractController
         foreach ($troops as $troop) {
             //Check if access to the database
             if (false === $this->troopManager->insert($troop)) {
-                header("HTTP/1.0 404 Not Found");
-                echo '404 - Page not found';
+                header("HTTP/1.1 503 Service Unavailable");
+                echo '503 - Service Unavailable';
             }
         }
 
         // Check if access to the database and data deletion
         if (false === $this->castleManager->deleteAll()) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+            header("HTTP/1.1 503 Service Unavailable");
+            echo '503 - Service Unavailable';
         }
         // Creation of castle
         $castle = new Castle();
@@ -65,8 +65,8 @@ class GameController extends AbstractController
 
         // Insertion of castle in the database
         if (false === $this->castleManager->insert($castle)) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+            header("HTTP/1.1 503 Service Unavailable");
+            echo '503 - Service Unavailable';
         }
 
         // Redirection after initialization
@@ -76,7 +76,7 @@ class GameController extends AbstractController
 
     public function play():string
     {
-        $castle = $this->castleManager->selectAll();
+        $castle = $this->castleManager->selectOneById(1);
         $troops = $this->troopManager->selectAll();
         return $this->twig->render("Game/troop.html.twig", ["castle" => $castle, "troops" => $troops]);
     }

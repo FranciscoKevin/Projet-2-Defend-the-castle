@@ -22,10 +22,6 @@ define('APP_DB_PWD', 'your_db_password');
 6. Go to `localhost:8000` with your favorite browser.
 7. From this starter kit, create your own web application.
 
-### Windows Users
-
-xxx
-
 ## URLs availables
 
 * Home page at [localhost:8000/](localhost:8000/game/play)
