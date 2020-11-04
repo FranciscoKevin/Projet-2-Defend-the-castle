@@ -66,8 +66,8 @@ class GameController extends AbstractController
 
         // Check if access to the database and data deletion
         if (false === $this->castleManager->deleteAll()) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+            header("HTTP/1.1 503 Service Unavailable");
+            echo '503 - Service Unavailable';
         }
         // Creation of castle
         $castle = new Castle();
@@ -76,8 +76,8 @@ class GameController extends AbstractController
 
         // Insertion of castle in the database
         if (false === $this->castleManager->insert($castle)) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+            header("HTTP/1.1 503 Service Unavailable");
+            echo '503 - Service Unavailable';
         }
 
         // Redirection after initialization

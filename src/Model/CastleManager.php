@@ -10,9 +10,6 @@ namespace App\Model;
 
 use PDO;
 
-/**
- *
- */
 class CastleManager extends AbstractManager
 {
     /**
@@ -35,9 +32,9 @@ class CastleManager extends AbstractManager
         // Preparation of the request for the insertion of castle
         $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, score) VALUES (:name, :score)");
         // Check if access to the database
-        if ((false == $insert)
-            || (false == $insert->bindValue('name', $castle->getName(), PDO::PARAM_STR))
-            || (false == $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT))) {
+        if ((false === $insert)
+            || (false === $insert->bindValue('name', $castle->getName(), PDO::PARAM_STR))
+            || (false === $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT))) {
                 return self::ERROR;
         } else {
             if ($insert->execute()) {
@@ -52,7 +49,7 @@ class CastleManager extends AbstractManager
         // Preparation of the data deletion request
         $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
         // Check if access to the database
-        if (false == $truncate) {
+        if (false === $truncate) {
             return self::ERROR;
         } else {
             $truncate->execute();
