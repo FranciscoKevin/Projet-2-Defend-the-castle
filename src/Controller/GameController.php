@@ -28,13 +28,15 @@ class GameController extends AbstractController
     public function init(): string
     {
         if (false === $this->troopManager->deleteAll()) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+             header("HTTP/1.1 503 Service Unavailable");
+             echo '503 - Service Unavailable';
+             return "";
         }
 
         if (false === $this->enemyManager->deleteAttacker()) {
-            header("HTTP/1.0 404 Not Found");
-            echo '404 - Page not found';
+             header("HTTP/1.1 503 Service Unavailable");
+             echo '503 - Service Unavailable';
+             return "";
         }
         
         //-------------------------------------Archer------------------------------------
@@ -54,8 +56,9 @@ class GameController extends AbstractController
 
         foreach ($troops as $troop) {
             if (false === $this->troopManager->insert($troop)) {
-                header("HTTP/1.0 404 Not Found");
-                echo '404 - Page not found';
+                header("HTTP/1.1 503 Service Unavailable");
+                echo '503 - Service Unavailable';
+                return "";
             }
         }
         header('Location: /game/play');
