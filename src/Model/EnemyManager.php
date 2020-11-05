@@ -16,7 +16,7 @@ use PDO;
 class EnemyManager extends AbstractManager
 {
     /**
-     *
+     * constant table in database and ERROR
      */
     const TABLE = 'enemy';
     const ERROR = -1;
@@ -45,18 +45,17 @@ class EnemyManager extends AbstractManager
         }
         return self::ERROR;
     }
-    
+    //Delete attacker from database when we call it
     public function deleteAttacker()
     {
         $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
         if (false == $truncate) {
             return self::ERROR;
         } else {
-            $truncate->execute();
+            return $truncate->execute();
         }
-        return "";
     }
-
+    //select the attacker from database
     public function selectCurrent() : ?Troop
     {
         $troops = $this->selectAll();
