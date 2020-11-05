@@ -1,147 +1,342 @@
-/* CSS BODY */
-
+/***VARIABLES***/
+:root {
+    --color-primary: #3f3f3fbd;
+    --color-secondary: rgba(0, 0, 0, 0.6);
+    --color-secondary-hover: rgba(0, 0, 0);
+    --color-tertiary: #F5C009;
+    --font-primary: 'MedievalSharp', cursive;
+    --cursor: url(../images/sword.cur), pointer;
+}
 body {
-    margin:0;
-    padding:0;
-    background: url('/assets/images/terrain.png') no-repeat center fixed; 
+    margin: 0;
+    padding: 0;
+    background: url(../images/terrain.png) no-repeat center fixed; 
     -webkit-background-size: cover;
     background-size: cover;
+    font-family: var(--font-primary);
 }
-
-.header {
-    background-color: #3f3f3fbd;
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 110px;
-    border-radius: 0px 0px 20px 20px;
-    position: relative;
-}
-
-/* Cards */
-
+/***DEFENSIVE CARDS***/
 .container-card {
-    background-color: #3f3f3fbd;
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 110px;
     position: fixed;
     bottom: 0;
+    width: 100%;
+    height: 110px;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--color-primary);
     border-radius: 20px 20px 0px 0px;
 }
-
 .player-card {
-    margin-top: 10px;
+    position: relative;
+    bottom: 0px;
     width: 33%;
     height: 250px;
-    position: relative;
-    bottom: -0px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
-
 .player-card:hover {
     bottom: 150px;
     transition: 1s;
+    cursor: var(--cursor);
 }
-
-.ennemy-card {
+.img-card {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+}
+/***HEADER***/
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 110px;
+    background-color: var(--color-primary);
+    border-radius: 0px 0px 20px 20px;
+}
+.container-item {
+    margin: 5px;
+}
+.item-header {
+    padding: 5px;
+    height: 50px;
+    background-color: var(--color-secondary);
+    color: var(--color-tertiary);
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 50px;
+    text-transform: uppercase;
+}
+@media screen and (max-width: 1000px) {
+    .item-header {
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .item-header {
+        line-height: 25px;
+    }
+}
+/***HEADER: first block***/
+@media screen and (min-width: 1000px) {
+    .container-score {
+        margin-left: 80px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .container-score {
+        margin-left: 5px;
+    }
+}
+/***HEADER: second block***/
+.card-attack {
+    position: relative;
+    top: -150px;
+    height: 250px;
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
-    width: 33%;
-    height: 250px;
-    position: relative;
-    top: -50px;
 }
-
-.img-card {
-    max-width:100%;
-    max-height:100%;
-    border-radius: 10px;
+.card-attack:hover {
+    top: 10px;
+    transition: 1s;
+    cursor: var(--cursor);
 }
-
-/* end-Cards */
-
-.container_button {
+/***HEADER: third block***/
+@media screen and (min-width: 1000px) {
+    .container-name {
+        margin-right: 80px;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .container-name {
+        margin-right: 5px;
+    }
+}
+/***RESTART BUTTON***/
+.restart-button {
+    position: absolute;
+    top: 130px;
+    right: 10px;
+    display: block;
+    height: 50px;
+    width: 100px;
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-tertiary);
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+}
+.restart-button:hover {
+    background-color: var(--color-tertiary);
+    color: var(--color-secondary);
+    cursor: var(--cursor);
+}
+/***Sert uniquement à vérifier que la connexion à la bdd fonctionne correctement
+=> A supprimer par la suite***/
+.player {
+    color: var(--color-tertiary);
+    background-color: var(--color-secondary);
+    margin: 200px auto;
+    padding: 10px;
+    color: yellow;
+}
+/***RESTART WINDOW***/
+#restart-filigram {
+    display: none;
+    position: fixed;               
+    top: 0; right:0; bottom:0; left: 0;
+    background-color: var(--color-primary);
+    z-index : 1000;
+}
+#restart-button {
+    display : none;
+}
+#restart-button:checked + #restart-filigram {
+    display: block;
+}
+label{
+    cursor: var(--cursor);
+}
+#restart-message, #castle-message {
+    width: 600px;
+    height: 400px;
+    margin: 200px auto;
+    padding: 15px;
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-tertiary);
+    border-radius: 20px;
+    color: var(--color-tertiary);
+    font-size: 25px;
+    text-align: center;
+}
+#restart-message h3, #restart-message p {
+    margin: 30px;
+}
+@media screen and (max-width: 800px) {
+    #restart-message, #castle-message {
+        width: 400px;
+        height: 350px;
+        margin: 250px auto;
+        padding: 12px;
+        border-radius: 15px;
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    #restart-message, #castle-message {
+        width: 300px;
+        height: 280px;
+        margin: 300px auto;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+}
+#castle-message {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 33%;
 }
-
-.button {
-    background-color: rgba(0, 0, 0, 0.637);
-    border-radius: 10px;
-    border-style: none;
-    padding: 15px;
-    color: whitesmoke;
-    font-size: 1rem;
+.button-no-yes {
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    width: 100px;
+    font-size: 30px;
+    text-transform: uppercase;
+    cursor: var(--cursor);
+}
+@media screen and (max-width: 800px) {
+    .button-no-yes {
+        margin: 15px;
+        padding: 15px;
+        width: 80;
+        font-size: 25px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .button-no-yes {
+        margin: 10px;
+        padding: 10px;
+        width: 60;
+        font-size: 20px;
+    }
+}
+#button-no {
+    background-color: var(--color-primary);
+    color: white;
+}
+#button-yes {
+    background-color: var(--color-tertiary);
+    color: var(--color-secondary);
     text-decoration: none;
-    
 }
-
-.button:hover {
-    background-color: rgb(0, 0, 0);
-    cursor: pointer;
+#button-yes:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.5s;
 }
-
-.container_score {
-    display: flex;
-    width: 33%;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    
+/***CASTLE CHOICE WINDOW***/
+#castle-choice {
+    display : none;
 }
-
-.castle {
-    color: whitesmoke;
-    background-color: rgba(0, 0, 0, 0.637);
-    border: 1px solid whitesmoke;
-    border-radius: 10px;
-    padding: 10px;
+#castle-choice:checked + #restart-filigram {
+    display: block;
 }
-
-.player {
-    color: whitesmoke;
-    background-color: rgba(0, 0, 0, 0.637);
-    border: 1px solid whitesmoke;
-    border-radius: 10px;
-    padding: 5px;
+#castle-message p {
+    margin: 0;
+    font-size: 15px;
 }
-
-@media screen and (min-width: 545px) {
-    .player-card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+#castle-message div {
+    width: 300px;
+    padding: 15px;
+    font-size: 30px;
+}
+@media screen and (max-width: 800px) {
+    #castle-message p {
+        font-size: 12px;
+    }
+    #castle-message div {
+        padding: 12px;
+        font-size: 25px;
     }
 }
-
-@media screen and (min-width: 1200px) {
-    .container {
-        width: 100%;
-        height: 50px;
-        position: fixed;
-        bottom: 0;
-        border-radius: 20px 20px 0px 0px;
+@media screen and (max-width: 600px) {
+    #castle-message p {
+        font-size: 10px;
     }
-
-    .container_score {
-        flex-direction: row;
+    #castle-message div {
+        padding: 10px;
+        font-size: 20px;
     }
-
-    .player-card {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+}
+input[type="radio"] {
+    display:none;
+}
+input[type="radio"] + label {
+    color: var(--color-tertiary);
+    cursor: var(--cursor);
+}
+input[type="radio"] + label span {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    margin-right: 30px;
+    background: url(../images/red-cross.png) no-repeat center;
+}
+input[type="radio"]:checked + label span {
+    background: url(../images/castle-50.png) no-repeat center;
+}
+#button-new-game {
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    background-color: var(--color-tertiary);
+    border: none;
+    color: var(--color-secondary);
+    font-family: var(--font-primary);
+    font-size: 30px;
+    cursor: var(--cursor);
+}
+#button-new-game:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+@media screen and (max-width: 800px) {
+    input[type="radio"] + label span {
+        width: 40px;
+        height: 40px;
     }
-
-    .player {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+    input[type="radio"]:checked + label span {
+        background: url(../images/castle-40.png) no-repeat center;
+    }
+    #button-new-game {
+        margin: 15px;
+        padding: 15px;
+        width: 250px;
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    input[type="radio"] + label span {
+        width: 30px;
+        height: 30px;
+    }
+    input[type="radio"]:checked + label span {
+        background: url(../images/castle-30.png) no-repeat center;
+    }
+    #button-new-game {
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        font-size: 15px;
     }
 }

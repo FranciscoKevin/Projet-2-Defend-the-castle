@@ -63,7 +63,6 @@ class GameController extends AbstractController
                 return "";
             }
         }
-
         // Check if access to the database and data deletion
         if (false === $this->castleManager->deleteAll()) {
             header("HTTP/1.1 503 Service Unavailable");
@@ -71,15 +70,17 @@ class GameController extends AbstractController
         }
         // Creation of castle
         $castle = new Castle();
-        $castle->setName("|||_|||_|||_DEFEND THE CASTLE_|||_|||_|||");
         $castle->setScore();
-
+        if (isset($_POST["castle"])) {
+            $castle->setName($_POST["castle"]);
+        } else {
+            $castle->setName("Defend the Castle");
+        }
         // Insertion of castle in the database
         if (false === $this->castleManager->insert($castle)) {
             header("HTTP/1.1 503 Service Unavailable");
             echo '503 - Service Unavailable';
         }
-
         // Redirection after initialization
         header('Location: /game/play');
         return "";
