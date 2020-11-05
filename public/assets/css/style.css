@@ -4,7 +4,7 @@
     --color-secondary: rgba(0, 0, 0, 0.6);
     --color-secondary-hover: rgba(0, 0, 0);
     --color-tertiary: #F5C009;
-    --font-primary: 'MedievalSharp', cursive;
+    --font-primary: cursive;
     --cursor: url(../images/sword.cur), pointer;
 }
 body {
@@ -173,7 +173,7 @@ label{
     text-align: center;
 }
 #restart-message h3, #restart-message p {
-    margin: 30px;
+    margin: 35px 5px;
 }
 @media screen and (max-width: 800px) {
     #restart-message, #castle-message {
