@@ -11,7 +11,7 @@ namespace App\Model;
 use PDO;
 
 /**
- *
+ * This class Manager is for manage the attackers
  */
 class EnemyManager extends AbstractManager
 {
