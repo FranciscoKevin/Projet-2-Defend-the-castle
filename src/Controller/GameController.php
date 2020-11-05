@@ -34,9 +34,9 @@ class GameController extends AbstractController
         }
 
         if (false === $this->enemyManager->deleteAttacker()) {
-             return "";
              header("HTTP/1.1 503 Service Unavailable");
              echo '503 - Service Unavailable';
+             return "";
         }
         
         //-------------------------------------Archer------------------------------------
