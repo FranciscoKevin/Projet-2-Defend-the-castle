@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Max
@@ -18,8 +19,8 @@ class EnemyManager extends AbstractManager
     /**
      * constant table in database and ERROR
      */
-    const TABLE = 'enemy';
-    const ERROR = -1;
+    public const TABLE = 'enemy';
+    public const ERROR = -1;
 
     /**
      *  Initializes this class.
@@ -28,15 +29,17 @@ class EnemyManager extends AbstractManager
     {
         parent::__construct(self::TABLE);
     }
-   
+
     public function insertEnemy(Troop $enemy): int
     {
         // prepared request
         $insertEnemy = $this->pdo->prepare("INSERT INTO " . self::TABLE .
             " (name, strength) VALUES (:name, :strength)");
-        if ((false == $insertEnemy)
-            || (false == $insertEnemy->bindValue('name', $enemy->getName(), PDO::PARAM_STR))
-            || (false == $insertEnemy->bindValue('strength', $enemy->getLevel(), PDO::PARAM_INT))) {
+        if (
+            false == $insertEnemy ||
+            false == $insertEnemy->bindValue('name', $enemy->getName(), PDO::PARAM_STR) ||
+            false == $insertEnemy->bindValue('strength', $enemy->getLevel(), PDO::PARAM_INT)
+        ) {
                 return self::ERROR;
         } else {
             if ($insertEnemy->execute()) {
@@ -56,7 +59,7 @@ class EnemyManager extends AbstractManager
         }
     }
     //select the attacker from database
-    public function selectCurrent() : ?Troop
+    public function selectCurrent(): ?Troop
     {
         $troops = $this->selectAll();
         if (empty($troops)) {
