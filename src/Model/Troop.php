@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Max
@@ -7,7 +8,6 @@
  */
 
 namespace App\Model;
-
 
 class Troop
 {
@@ -23,16 +23,16 @@ class Troop
 
     private $id;
 
-    const NAMES = ['Archer', 'Horseman', 'Lancer'];
+    public const NAMES = ['Archer', 'Horseman', 'Lancer'];
 
-    const LEVEL_MIN = 20;
-    const LEVEL_MAX = 100;
+    public const LEVEL_MIN = 20;
+    public const LEVEL_MAX = 100;
 
     public function setId(int $id): void
     {
         $this->id = $id;
     }
-    
+
     public function getId(): int
     {
         return $this->id;
@@ -63,7 +63,7 @@ class Troop
         $this->name = self::NAMES[random_int(0, 2)];
     }
 
-    public function getName():string
+    public function getName(): string
     {
         return $this->name;
     }

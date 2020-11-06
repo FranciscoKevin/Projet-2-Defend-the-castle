@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Max
@@ -38,7 +39,7 @@ class GameController extends AbstractController
              echo '503 - Service Unavailable';
              return "";
         }
-        
+
         //-------------------------------------Archer------------------------------------
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
