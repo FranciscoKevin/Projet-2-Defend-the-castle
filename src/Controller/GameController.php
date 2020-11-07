@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Max
@@ -10,29 +11,37 @@ namespace App\Controller;
 
 use App\Model\Troop;
 use App\Model\TroopManager;
+use App\Model\EnemyManager;
 use App\Model\Castle;
 use App\Model\CastleManager;
 
 class GameController extends AbstractController
 {
     private $troopManager;
+    private $enemyManager;
     private $castleManager;
 
     public function __construct()
     {
         parent::__construct();
         $this->troopManager = new TroopManager();
+        $this->enemyManager = new EnemyManager();
         $this->castleManager = new CastleManager();
     }
 
     public function init(): string
     {
-        // Check if access to the database and data deletion
         if (false === $this->troopManager->deleteAll()) {
             header("HTTP/1.1 503 Service Unavailable");
             echo '503 - Service Unavailable';
         }
-        // Creation of troops with their random level
+
+        if (false === $this->enemyManager->deleteAttacker()) {
+             header("HTTP/1.1 503 Service Unavailable");
+             echo '503 - Service Unavailable';
+             return "";
+        }
+
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
         $troops[0]->setRandomLevel();
@@ -44,40 +53,50 @@ class GameController extends AbstractController
         $troops[2]->setRandomLevel();
         shuffle($troops);
 
-        // Insertion of troops in the database
         foreach ($troops as $troop) {
-            //Check if access to the database
             if (false === $this->troopManager->insert($troop)) {
                 header("HTTP/1.1 503 Service Unavailable");
                 echo '503 - Service Unavailable';
             }
         }
 
-        // Check if access to the database and data deletion
         if (false === $this->castleManager->deleteAll()) {
             header("HTTP/1.1 503 Service Unavailable");
             echo '503 - Service Unavailable';
         }
-        // Creation of castle
+
         $castle = new Castle();
-        $castle->setName("|||_|||_|||_DEFEND THE CASTLE_|||_|||_|||");
+        $castle->setName("DEFEND THE CASTLE");
         $castle->setScore();
 
-        // Insertion of castle in the database
         if (false === $this->castleManager->insert($castle)) {
             header("HTTP/1.1 503 Service Unavailable");
             echo '503 - Service Unavailable';
         }
 
-        // Redirection after initialization
         header('Location: /game/play');
         return "";
     }
 
-    public function play():string
+    public function play(): string
     {
-        $castle = $this->castleManager->selectOneById(1);
-        $troops = $this->troopManager->selectAll();
-        return $this->twig->render("Game/troop.html.twig", ["castle" => $castle, "troops" => $troops]);
+        $enemy = $this->enemyManager->selectCurrent();
+
+        if (null === $enemy) {
+            $enemy = new Troop();
+            $enemy->setRandomName();
+            $enemy->setRandomLevel();
+            $id = $this->enemyManager->insertEnemy($enemy);
+            if (EnemyManager::ERROR === $id) {
+                header("HTTP/1.1 503 Service Unavailable");
+                echo '503 - Service Unavailable';
+                return "";
+            }
+            $enemy->setId($id);
+        }
+            $troops = $this->troopManager->selectAll();
+            $castle = $this->castleManager->selectOneById(1);
+            return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
+            "castle" => $castle]);
     }
 }

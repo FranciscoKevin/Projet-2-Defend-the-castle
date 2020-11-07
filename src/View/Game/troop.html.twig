@@ -13,23 +13,21 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="ennemy-card">
-            <img src="/assets/images/Archer.png" class="img-card" alt="ennemy">
-        </div>
+            <div class="ennemy-card">
+                    <img src="/assets/images/{{ enemy.getName() }}.png" class="img-card" alt="{{ enemy.getName() }}" name="{{ enemy.getName() }}">
+            </div>
         <div class="container_button">
             <a class="button" href="/game/init">Restart</a>
-        </div>
+        </div> 
     </div>
-
+    
     <div class="container-card">
-        <div class="player-card">
-            <img src="/assets/images/knight.png" class="img-card" alt="archer">
-        </div>
-        <div class="player-card">
-            <img src="/assets/images/Horseman.png" class="img-card" alt="archer">
-        </div>
-        <div class="player-card">
-            <img src="/assets/images/Archer.png" class="img-card" alt="archer">
-        </div>
+        {% for troop in troops %}
+            <div class="player-card">
+                <a href="/game/select/{{ troop.id }}" name="{{ troop.name }}" class="img-card">
+                    <img src="/assets/images/{{ troop.name }}.png" class="img-card" alt="{{ troop.name }}" name="{{ troop.name }}">
+                </a>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

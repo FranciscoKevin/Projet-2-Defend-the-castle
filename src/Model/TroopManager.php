@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Max
@@ -18,8 +19,8 @@ class TroopManager extends AbstractManager
     /**
      *
      */
-    const TABLE = 'troop';
-    const ERROR = -1;
+    public const TABLE = 'troop';
+    public const ERROR = -1;
 
     /**
      *  Initializes this class.
@@ -29,14 +30,15 @@ class TroopManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-   
     public function insert(Troop $troop)
     {
         // prepared request
         $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, strength) VALUES (:name, :strength)");
-        if ((false == $insert)
-            || (false == $insert->bindValue('name', $troop->getName(), PDO::PARAM_STR))
-            || (false == $insert->bindValue('strength', $troop->getLevel(), PDO::PARAM_INT))) {
+        if (
+            false == $insert ||
+            false == $insert->bindValue('name', $troop->getName(), PDO::PARAM_STR) ||
+            false == $insert->bindValue('strength', $troop->getLevel(), PDO::PARAM_INT)
+        ) {
                 return self::ERROR;
         } else {
             if ($insert->execute()) {

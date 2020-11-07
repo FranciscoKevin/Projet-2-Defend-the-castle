@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: root
@@ -33,6 +34,7 @@ abstract class AbstractController
         $this->twig = new Environment(
             $loader,
             [
+                /** @phpstan-ignore-next-line */
                 'cache' => !APP_DEV,
                 'debug' => APP_DEV,
             ]
