@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by VisualStudioCode.
  * User: Thomas
@@ -8,7 +9,9 @@
 
 namespace App\Model;
 
-
+/**
+ * This class allows you to create a castle with a name property and a score initialized to 0.
+ */
 class Castle
 {
     /**
@@ -21,7 +24,7 @@ class Castle
      */
     private $score;
 
-    public function setScore(): void
+    public function resetScore(): void
     {
         $this->score = 0;
     }
@@ -35,7 +38,7 @@ class Castle
     {
         $this->name = $name;
     }
-    public function getName():string
+    public function getName(): string
     {
         return $this->name;
     }

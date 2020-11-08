@@ -15,12 +15,20 @@ use App\Model\EnemyManager;
 use App\Model\Castle;
 use App\Model\CastleManager;
 
+/**
+ * This class is used to control the progress of the game.
+ * Defensive and attacking troops are instantiated here as well as the castle.
+ * It also generates the different views of the game.
+ */
 class GameController extends AbstractController
 {
     private $troopManager;
     private $enemyManager;
     private $castleManager;
 
+    /**
+     * This method adds Managers classes to the constructor of the class inherited from the parent class.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -29,6 +37,11 @@ class GameController extends AbstractController
         $this->castleManager = new CastleManager();
     }
 
+    /**
+     * This method initialize the game by creating the defensive troops and the castle.
+     * The properties of the troops and the castle are recorded in their respective databases.
+     * This method returns a string and does a redirect.
+     */
     public function init(): string
     {
         if (false === $this->troopManager->deleteAll()) {
@@ -39,9 +52,7 @@ class GameController extends AbstractController
         if (false === $this->enemyManager->deleteAttacker()) {
              header("HTTP/1.1 503 Service Unavailable");
              echo '503 - Service Unavailable';
-             return "";
         }
-
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
         $troops[0]->setRandomLevel();
@@ -59,15 +70,10 @@ class GameController extends AbstractController
                 echo '503 - Service Unavailable';
             }
         }
-
-        if (false === $this->castleManager->deleteAll()) {
-            header("HTTP/1.1 503 Service Unavailable");
-            echo '503 - Service Unavailable';
-        }
-
+        $this->castleManager->truncate();
         $castle = new Castle();
+        $castle->resetScore();
         $castle->setName("DEFEND THE CASTLE");
-        $castle->setScore();
 
         if (false === $this->castleManager->insert($castle)) {
             header("HTTP/1.1 503 Service Unavailable");
@@ -78,6 +84,11 @@ class GameController extends AbstractController
         return "";
     }
 
+    /**
+     * This method retrieves data from the defensive troops and the castle.
+     * She creates a random attacker with a random level.
+     * It sends data necessary for the view.
+     */
     public function play(): string
     {
         $enemy = $this->enemyManager->selectCurrent();
@@ -94,9 +105,9 @@ class GameController extends AbstractController
             }
             $enemy->setId($id);
         }
-            $troops = $this->troopManager->selectAll();
-            $castle = $this->castleManager->selectOneById(1);
-            return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
-            "castle" => $castle]);
+        $troops = $this->troopManager->selectAll();
+        $castle = $this->castleManager->selectOneById(1);
+        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
+        "castle" => $castle]);
     }
 }

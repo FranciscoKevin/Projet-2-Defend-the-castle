@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by VisualStudioCode.
  * User: Thomas
@@ -9,51 +10,43 @@
 namespace App\Model;
 
 use PDO;
+use PDOException;
 
+/**
+ * This class allows you to insert the properties of the castle, created with the Castle class, in the database.
+ */
 class CastleManager extends AbstractManager
 {
-    /**
-     * Class constants
-     */
-    const TABLE = 'castle';
-    const ERROR = -1;
+    public const TABLE = 'castle';
+    public const ERROR = false;
 
     /**
-     * Class initialization
+     * This method adds the castle table to the constructor of the class inherited from the parent class.
      */
     public function __construct()
     {
         parent::__construct(self::TABLE);
     }
 
-   
-    public function insert(Castle $castle)
+    /**
+     * This method allows you to insert the properties of the castle in the database.
+     * It returns true if the castle properties are correctly inserted,
+     * and false if there is a problem with the database.
+     */
+    public function insert(Castle $castle): bool
     {
-        // Preparation of the request for the insertion of castle
-        $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, score) VALUES (:name, :score)");
-        // Check if access to the database
-        if ((false == $insert)
-            || (false === $insert->bindValue('name', $castle->getName(), PDO::PARAM_STR))
-            || (false === $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT))) {
-                return self::ERROR;
-        } else {
-            if ($insert->execute()) {
-                return (int)$this->pdo->lastInsertId();
-            }
+        try {
+            $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, score) VALUES (:name, :score)");
+        } catch (PDOException $error) {
+            return false;
         }
-        return "";
-    }
-
-    public function deleteAll()
-    {
-        // Preparation of the data deletion request
-        $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
-        // Check if access to the database
-        if (false == $truncate) {
-            return self::ERROR;
-        } else {
-            $truncate->execute();
+        if (
+            false !== $insert &&
+            false !== $insert->bindValue('name', $castle->getName(), PDO::PARAM_STR) &&
+            false !== $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT)
+        ) {
+            return $insert->execute();
         }
-        return "";
+        return false;
     }
 }
