@@ -1,15 +1,15 @@
 {% extends 'layout.html.twig' %}
 {% block content %}
     <div class="header">
-    <!--CASTLE SCORE-->
+        <!--CASTLE SCORE-->
         <div class="container-item container-score">
             <p class="item-header castle-score">Castle score: {{ castle.score }}</p>
         </div>
-    <!--CARD ATTACK-->
+        <!--CARD ATTACK-->
         <div class="card-attack">
             <img src="/assets/images/{{ enemy.getName() }}.png" class="img-card" alt="{{ enemy.getName() }}" name="{{ enemy.getName() }}">
         </div>
-    <!--CASTLE NAME-->
+        <!--CASTLE NAME-->
         <div class="container-item container-name">
             <p class="item-header castle-name">{{ castle.name }}</p>
         </div>
@@ -46,7 +46,6 @@
             </div>
         </div>
     </div>
-
     <div class="player">
         {% for soldier in troops %}
             <h3>{{ soldier.name }} = {{ soldier.strength }}</h3>

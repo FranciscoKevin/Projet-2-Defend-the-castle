@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by VisualStudioCode.
  * User: Thomas
@@ -16,8 +17,8 @@ use PDOException;
  */
 class CastleManager extends AbstractManager
 {
-    const TABLE = 'castle';
-    const ERROR = false;
+    public const TABLE = 'castle';
+    public const ERROR = false;
 
     /**
      * This method adds the castle table to the constructor of the class inherited from the parent class.
@@ -39,9 +40,11 @@ class CastleManager extends AbstractManager
         } catch (PDOException $error) {
             return false;
         }
-        if (false !== $insert &&
+        if (
+            false !== $insert &&
             false !== $insert->bindValue('name', $castle->getName(), PDO::PARAM_STR) &&
-            false !== $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT)) {
+            false !== $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT)
+        ) {
             return $insert->execute();
         }
         return false;

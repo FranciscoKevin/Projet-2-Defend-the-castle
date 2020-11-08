@@ -12,6 +12,8 @@ namespace App\Controller;
 use App\Model\Troop;
 use App\Model\TroopManager;
 use App\Model\EnemyManager;
+use App\Model\Castle;
+use App\Model\CastleManager;
 
 /**
  * This class is used to control the progress of the game.
@@ -32,6 +34,7 @@ class GameController extends AbstractController
         parent::__construct();
         $this->troopManager = new TroopManager();
         $this->enemyManager = new EnemyManager();
+        $this->castleManager = new CastleManager();
     }
 
     /**
@@ -45,10 +48,12 @@ class GameController extends AbstractController
             header("HTTP/1.1 503 Service Unavailable");
             return $this->twig->render("Error/503.html.twig");
         }
+
         if (false === $this->enemyManager->deleteAttacker()) {
             header("HTTP/1.1 503 Service Unavailable");
             return $this->twig->render("Error/503.html.twig");
         }
+
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
         $troops[0]->setRandomLevel();
@@ -66,7 +71,7 @@ class GameController extends AbstractController
                 return $this->twig->render("Error/503.html.twig");
             }
         }
-        
+
         $this->castleManager->truncate();
         $castle = new Castle();
         $castle->resetScore();
@@ -86,6 +91,7 @@ class GameController extends AbstractController
 
     /**
      * This method retrieves data from the defensive troops and the castle.
+     * She creates a random attacker with a random level.
      * It sends data necessary for the view.
      */
     public function play(): string
@@ -99,12 +105,13 @@ class GameController extends AbstractController
             $id = $this->enemyManager->insertEnemy($enemy);
             if (EnemyManager::ERROR === $id) {
                 header("HTTP/1.1 503 Service Unavailable");
-                echo '503 - Service Unavailable';
-                return "";
+                return $this->twig->render("Error/503.html.twig");
             }
             $enemy->setId($id);
         }
             $troops = $this->troopManager->selectAll();
-            return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy]);
+            $castle = $this->castleManager->selectOneById(1);
+            return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
+            "castle" => $castle]);
     }
 }

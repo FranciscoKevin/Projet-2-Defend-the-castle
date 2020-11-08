@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by VisualStudioCode.
  * User: Thomas
@@ -13,7 +14,7 @@ namespace App\Model;
  */
 class Castle
 {
-    const POSSIBLE_NAMES = ["Kaamelott", "Barad-dûr", "Winterfell", "Defend the Castle"];
+    public const POSSIBLE_NAMES = ["Kaamelott", "Barad-dûr", "Winterfell", "Defend the Castle"];
 
     /**
      * @var string
@@ -44,7 +45,7 @@ class Castle
         }
     }
 
-    public function getName():string
+    public function getName(): string
     {
         return $this->name;
     }
