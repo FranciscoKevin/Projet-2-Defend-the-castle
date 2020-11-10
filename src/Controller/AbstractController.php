@@ -15,7 +15,7 @@ use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
 /**
- *
+ * Creation of twig variables to create views.
  */
 abstract class AbstractController
 {
@@ -24,10 +24,6 @@ abstract class AbstractController
      */
     protected $twig;
 
-
-    /**
-     *  Initializes this class.
-     */
     public function __construct()
     {
         $loader = new FilesystemLoader(APP_VIEW_PATH);
