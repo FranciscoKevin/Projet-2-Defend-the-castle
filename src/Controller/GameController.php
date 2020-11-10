@@ -23,8 +23,8 @@ use App\Model\CastleManager;
 class GameController extends AbstractController
 {
     private $troopManager;
-    private $castleManager;
     private $enemyManager;
+    private $castleManager;
 
     /**
      * This method adds Managers classes to the constructor of the class inherited from the parent class.
@@ -109,9 +109,9 @@ class GameController extends AbstractController
             }
             $enemy->setId($id);
         }
-            $troops = $this->troopManager->selectAll();
-            $castle = $this->castleManager->selectOneById(1);
-            return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
-            "castle" => $castle]);
+        $troops = $this->troopManager->selectAll();
+        $castle = $this->castleManager->selectOneById(1);
+        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
+        "castle" => $castle]);
     }
 }
