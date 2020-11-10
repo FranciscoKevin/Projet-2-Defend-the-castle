@@ -7,7 +7,11 @@
         </div>
         <!--CARD ATTACK-->
         <div class="card-attack">
+        {% if battleResult is defined %}
+            <img src="/assets/images/{{ attacker["name"] }}.png" class="img-card" alt="{{ attacker["name"] }}" name="{{ attacker["name"] }}">
+        {% else %}
             <img src="/assets/images/{{ enemy.getName() }}.png" class="img-card" alt="{{ enemy.getName() }}" name="{{ enemy.getName() }}">
+        {% endif %}
         </div>
         <!--CASTLE NAME-->
         <div class="container-item container-name">
@@ -46,19 +50,26 @@
             </div>
         </div>
     </div>
+    <!--BATTLE-->
+    {% if battleResult is defined %}
+        <div class="battle-window">
+            <h1>{{ battleResult }}</h1>
+            <form method="POST" action="/game/play" id="">
+                <input type="submit" value="Ready for the next battle ?">
+            </form>
+        </div>
+    {% endif %}
     <div class="player">
-        {% for soldier in troops %}
-            <h3>{{ soldier.name }} = {{ soldier.strength }}</h3>
-        {% endfor %}
-        <h4>Sert uniquement à vérifier que la connexion à la bdd fonctionne correctement => A supprimer par la suite</h4>
+        {{ dump(troops) }}
+        {{ dump(enemy) }}
     </div>
     <div class="container-card">
         {% for troop in troops %}
-            <div class="player-card">
-                <a href="/game/select/{{ troop.id }}" name="{{ troop.name }}" class="img-card">
+            <a href="/game/battle/{{ troop.id }}">
+                <div class="player-card">
                     <img src="/assets/images/{{ troop.name }}.png" class="img-card" alt="{{ troop.name }}" name="{{ troop.name }}">
-                </a>
-            </div>
+                </div>
+            </a>
         {% endfor %}
     </div>
 {% endblock %}

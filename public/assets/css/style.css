@@ -29,7 +29,6 @@ body {
 .player-card {
     position: relative;
     bottom: 0px;
-    width: 33%;
     height: 250px;
     display: flex;
     justify-content: center;
@@ -139,7 +138,7 @@ body {
 .player {
     color: var(--color-tertiary);
     background-color: var(--color-secondary);
-    margin: 200px auto;
+    margin: 100px auto;
     padding: 10px;
     color: yellow;
 }

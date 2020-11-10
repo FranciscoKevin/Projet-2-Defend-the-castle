@@ -49,20 +49,23 @@ class GameController extends AbstractController
             return $this->twig->render("Error/503.html.twig");
         }
 
-        if (false === $this->enemyManager->deleteAttacker()) {
+        if (false === $this->enemyManager->deleteAll()) {
             header("HTTP/1.1 503 Service Unavailable");
             return $this->twig->render("Error/503.html.twig");
         }
 
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
-        $troops[0]->setRandomLevel();
+        $troops[0]->setRandomStrength();
+        $troops[0]->resetTiredness();
         $troops[1] = new Troop();
         $troops[1]->setName("Horseman");
-        $troops[1]->setRandomLevel();
+        $troops[1]->setRandomStrength();
+        $troops[1]->resetTiredness();
         $troops[2] = new Troop();
         $troops[2]->setName("Lancer");
-        $troops[2]->setRandomLevel();
+        $troops[2]->setRandomStrength();
+        $troops[2]->resetTiredness();
         shuffle($troops);
 
         foreach ($troops as $troop) {
@@ -72,7 +75,7 @@ class GameController extends AbstractController
             }
         }
 
-        $this->castleManager->truncate();
+        $this->castleManager->deleteAll();
         $castle = new Castle();
         $castle->resetScore();
         if (isset($_POST["castle"])) {
@@ -90,6 +93,28 @@ class GameController extends AbstractController
     }
 
     /**
+     *
+     */
+    public function battle(int $id)
+    {
+        $defenser = $this->troopManager->selectOneById($id);
+        $attacker = $this->enemyManager->selectOneById(1);
+
+        if ($defenser["strength"] > $attacker["strength"]) {
+            $battleResult = $defenser["name"] . " WIN";
+        } elseif ($defenser["strength"] < $attacker["strength"]) {
+            $battleResult = $defenser["name"] . " LOSE";
+        } else {
+            $battleResult = "DRAW";
+        }
+        $troops = $this->troopManager->selectAll();
+        $castle = $this->castleManager->selectOneById(1);
+
+        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "attacker" => $attacker,
+        "castle" => $castle, "battleResult" => $battleResult]);
+    }
+
+    /**
      * This method retrieves data from the defensive troops and the castle.
      * She creates a random attacker with a random level.
      * It sends data necessary for the view.
@@ -101,7 +126,7 @@ class GameController extends AbstractController
         if (null === $enemy) {
             $enemy = new Troop();
             $enemy->setRandomName();
-            $enemy->setRandomLevel();
+            $enemy->setRandomStrength();
             $id = $this->enemyManager->insertEnemy($enemy);
             if (EnemyManager::ERROR === $id) {
                 header("HTTP/1.1 503 Service Unavailable");

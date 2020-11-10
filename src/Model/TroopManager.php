@@ -11,20 +11,11 @@ namespace App\Model;
 
 use PDO;
 
-/**
- *
- */
 class TroopManager extends AbstractManager
 {
-    /**
-     *
-     */
-    public const TABLE = 'troop';
+    public const TABLE = "troop";
     public const ERROR = -1;
 
-    /**
-     *  Initializes this class.
-     */
     public function __construct()
     {
         parent::__construct(self::TABLE);
@@ -32,30 +23,19 @@ class TroopManager extends AbstractManager
 
     public function insert(Troop $troop)
     {
-        // prepared request
-        $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, strength) VALUES (:name, :strength)");
+        $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE .
+        "(name, strength, tiredness) VALUES (:name, :strength, :tiredness)");
         if (
             false == $insert ||
-            false == $insert->bindValue('name', $troop->getName(), PDO::PARAM_STR) ||
-            false == $insert->bindValue('strength', $troop->getLevel(), PDO::PARAM_INT)
+            false === $insert->bindValue("name", $troop->getName(), PDO::PARAM_STR) ||
+            false === $insert->bindValue("strength", $troop->getStrength(), PDO::PARAM_INT) ||
+            false === $insert->bindValue("tiredness", $troop->getTiredness(), PDO::PARAM_INT)
         ) {
                 return self::ERROR;
         } else {
             if ($insert->execute()) {
                 return (int)$this->pdo->lastInsertId();
             }
-        }
-        return "";
-    }
-
-    public function deleteAll()
-    {
-        // prepared request
-        $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
-        if (false == $truncate) {
-            return self::ERROR;
-        } else {
-            $truncate->execute();
         }
         return "";
     }

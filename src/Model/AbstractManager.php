@@ -17,23 +17,12 @@ use App\Model\Connection;
  */
 abstract class AbstractManager
 {
-    /**
-     * @var \PDO
-     */
-    protected $pdo; //variable de connexion
-
-    /**
-     * @var string
-     */
-    protected $table;
-    /**
-     * @var string
-     */
-    protected $className;
+    protected \PDO $pdo;
+    protected string $table;
+    protected string $className;
 
     /**
      * Initializes Manager Abstract class.
-     * @param string $table
      */
     public function __construct(string $table)
     {
@@ -44,26 +33,19 @@ abstract class AbstractManager
 
     /**
      * Get all row from database.
-     *
-     * @return array
      */
     public function selectAll(): array
     {
-        return $this->pdo->query('SELECT * FROM ' . $this->table)->fetchAll();
+        return $this->pdo->query("SELECT * FROM " . $this->table)->fetchAll();
     }
 
     /**
      * Get one row from database by ID.
-     *
-     * @param  int $id
-     *
-     * @return array
      */
-    public function selectOneById(int $id)
+    public function selectOneById(int $id): array
     {
-        // prepared request
         $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE id=:id");
-        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->bindValue("id", $id, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch();
     }
@@ -71,7 +53,7 @@ abstract class AbstractManager
     /**
      * This method allows you to delete all data from a database.
      */
-    public function truncate(): int
+    public function deleteAll(): int
     {
         return $this->pdo->exec("TRUNCATE " . $this->table);
     }

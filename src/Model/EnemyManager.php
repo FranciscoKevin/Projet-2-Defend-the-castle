@@ -19,7 +19,7 @@ class EnemyManager extends AbstractManager
     /**
      * constant table in database and ERROR
      */
-    public const TABLE = 'enemy';
+    public const TABLE = "enemy";
     public const ERROR = -1;
 
     /**
@@ -34,11 +34,11 @@ class EnemyManager extends AbstractManager
     {
         // prepared request
         $insertEnemy = $this->pdo->prepare("INSERT INTO " . self::TABLE .
-            " (name, strength) VALUES (:name, :strength)");
+        "(name, strength) VALUES (:name, :strength)");
         if (
             false == $insertEnemy ||
-            false == $insertEnemy->bindValue('name', $enemy->getName(), PDO::PARAM_STR) ||
-            false == $insertEnemy->bindValue('strength', $enemy->getLevel(), PDO::PARAM_INT)
+            false == $insertEnemy->bindValue("name", $enemy->getName(), PDO::PARAM_STR) ||
+            false == $insertEnemy->bindValue("strength", $enemy->getStrength(), PDO::PARAM_INT)
         ) {
                 return self::ERROR;
         } else {
@@ -47,16 +47,6 @@ class EnemyManager extends AbstractManager
             }
         }
         return self::ERROR;
-    }
-    //Delete attacker from database when we call it
-    public function deleteAttacker()
-    {
-        $truncate = $this->pdo->prepare("TRUNCATE " . self::TABLE);
-        if (false == $truncate) {
-            return self::ERROR;
-        } else {
-            return $truncate->execute();
-        }
     }
     //select the attacker from database
     public function selectCurrent(): ?Troop
@@ -67,8 +57,8 @@ class EnemyManager extends AbstractManager
         }
         $troop = new Troop();
         $troop->setId($troops[0]["id"]);
-        $troop->setName($troops[0]['name']);
-        $troop->setLevel($troops[0]['strength']);
+        $troop->setName($troops[0]["name"]);
+        $troop->setStrength($troops[0]["strength"]);
         return $troop;
     }
 }
