@@ -1,26 +1,57 @@
 {% extends 'layout.html.twig' %}
 {% block content %}   
     <div class="header">
-        <h1>Initialisation de la partie</h1>
-        <div class="container_score">
-            <div class="castle">
-                <h2>{{ castle.name }}</h2>
-                <h3>Score château: {{ castle.score }}</h3>
-            </div>
-            <div class="player">
-                {% for soldier in troops %}
-                    <p>{{ soldier.name }} = {{ soldier.strength }}</p>
-                {% endfor %}
+        <!--CASTLE SCORE-->
+        <div class="container-item container-score">
+            <p class="item-header castle-score">Castle score: {{ castle.score }}</p>
+        </div>
+        <!--CARD ATTACK-->
+        <div class="card-attack">
+            <img src="/assets/images/{{ enemy.getName() }}.png" class="img-card" alt="{{ enemy.getName() }}" name="{{ enemy.getName() }}">
+        </div>
+        <!--CASTLE NAME-->
+        <div class="container-item container-name">
+            <p class="item-header castle-name">{{ castle.name }}</p>
+        </div>
+    </div>
+    <!--RESTART-->
+    <label for="restart-button" class="restart-button">Restart</label>
+    <input type="checkbox" id="restart-button"/>
+    <div id="restart-filigram">
+        <div id="restart-message">
+            <h3>Hello valiant defender of the castle !</h3>
+            <h3>We need you, do you really want to lay down the arms</h3>
+            <h5>If you click on yes, the castle score will be reset</h5>
+            <label for="restart-button" class="button-no-yes" id="button-no">No</label>
+            <label for="castle-choice" class="button-no-yes" id="button-yes">Yes</label>
+            <input type="checkbox" id="castle-choice"/>
+            <div id="restart-filigram">
+                <form method="POST" action="/game/init" id="castle-message">
+                    <p>Select our castle, if you don't make a choice,<br>
+                    the default castle name will be "Defend the Castle"</p>
+                    <div>
+                        <input type="radio" name="castle" id="Kaamelott" value="Kaamelott">
+                        <label for="Kaamelott"><span></span>Kaamelott</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="castle" id="Barad-dûr" value="Barad-dûr">
+                        <label for="Barad-dûr"><span></span>Barad-dûr</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="castle" id="Winterfell" value="Winterfell">
+                        <label for="Winterfell"><span></span>Winterfell</label>
+                    </div>
+                    <input type="submit" id="button-new-game" value="New Castle">
+                </form>
             </div>
         </div>
-            <div class="ennemy-card">
-                    <img src="/assets/images/{{ enemy.getName() }}.png" class="img-card" alt="{{ enemy.getName() }}" name="{{ enemy.getName() }}">
-            </div>
-        <div class="container_button">
-            <a class="button" href="/game/init">Restart</a>
-        </div> 
     </div>
-    
+    <div class="player">
+        {% for soldier in troops %}
+            <h3>{{ soldier.name }} = {{ soldier.strength }}</h3>
+        {% endfor %}
+        <h4>Sert uniquement à vérifier que la connexion à la bdd fonctionne correctement => A supprimer par la suite</h4>
+    </div>
     <div class="container-card">
         {% for troop in troops %}
             <div class="player-card">

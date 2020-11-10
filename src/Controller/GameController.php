@@ -46,13 +46,14 @@ class GameController extends AbstractController
     {
         if (false === $this->troopManager->deleteAll()) {
             header("HTTP/1.1 503 Service Unavailable");
-            echo '503 - Service Unavailable';
+            return $this->twig->render("Error/503.html.twig");
         }
 
         if (false === $this->enemyManager->deleteAttacker()) {
-             header("HTTP/1.1 503 Service Unavailable");
-             echo '503 - Service Unavailable';
+            header("HTTP/1.1 503 Service Unavailable");
+            return $this->twig->render("Error/503.html.twig");
         }
+
         $troops[0] = new Troop();
         $troops[0]->setName("Archer");
         $troops[0]->setRandomLevel();
@@ -67,17 +68,21 @@ class GameController extends AbstractController
         foreach ($troops as $troop) {
             if (false === $this->troopManager->insert($troop)) {
                 header("HTTP/1.1 503 Service Unavailable");
-                echo '503 - Service Unavailable';
+                return $this->twig->render("Error/503.html.twig");
             }
         }
+
         $this->castleManager->truncate();
         $castle = new Castle();
         $castle->resetScore();
-        $castle->setName("DEFEND THE CASTLE");
-
+        if (isset($_POST["castle"])) {
+            $castle->setName($_POST["castle"]);
+        } else {
+            $castle->setName("Defend the Castle");
+        }
         if (false === $this->castleManager->insert($castle)) {
             header("HTTP/1.1 503 Service Unavailable");
-            echo '503 - Service Unavailable';
+            return $this->twig->render("Error/503.html.twig");
         }
 
         header('Location: /game/play');
@@ -100,8 +105,7 @@ class GameController extends AbstractController
             $id = $this->enemyManager->insertEnemy($enemy);
             if (EnemyManager::ERROR === $id) {
                 header("HTTP/1.1 503 Service Unavailable");
-                echo '503 - Service Unavailable';
-                return "";
+                return $this->twig->render("Error/503.html.twig");
             }
             $enemy->setId($id);
         }
