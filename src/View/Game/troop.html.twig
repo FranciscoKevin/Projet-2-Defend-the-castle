@@ -2,11 +2,11 @@
 {% block content %}   
     <div class="header">
         <!--CASTLE SCORE-->
-        <div class="container-item container-score">
+        <div class="container-items container-score">
             <p class="item-header castle-score">Castle score: {{ castle.score }}</p>
         </div>
-        <!--CARD ATTACK-->
-        <div class="card-attack">
+        <!--CARD ATTACKER-->
+        <div class="attacker">
         {% if battleResult is defined %}
             <img src="/assets/images/{{ attacker["name"] }}.png" class="img-card" alt="{{ attacker["name"] }}" name="{{ attacker["name"] }}">
         {% else %}
@@ -34,15 +34,15 @@
                     <p>Select our castle, if you don't make a choice,<br>
                     the default castle name will be "Defend the Castle"</p>
                     <div>
-                        <input type="radio" name="castle" id="Kaamelott" value="Kaamelott">
+                        <input type="radio" name="castle" class="radio-castle" id="Kaamelott" value="Kaamelott">
                         <label for="Kaamelott"><span></span>Kaamelott</label>
                     </div>
                     <div>
-                        <input type="radio" name="castle" id="Barad-dûr" value="Barad-dûr">
+                        <input type="radio" name="castle" class="radio-castle" id="Barad-dûr" value="Barad-dûr">
                         <label for="Barad-dûr"><span></span>Barad-dûr</label>
                     </div>
                     <div>
-                        <input type="radio" name="castle" id="Winterfell" value="Winterfell">
+                        <input type="radio" name="castle" class="radio-castle" id="Winterfell" value="Winterfell">
                         <label for="Winterfell"><span></span>Winterfell</label>
                     </div>
                     <input type="submit" id="button-new-game" value="New Castle">
@@ -52,21 +52,26 @@
     </div>
     <!--BATTLE-->
     {% if battleResult is defined %}
-        <div class="battle-window">
-            <h1>{{ battleResult }}</h1>
-            <form method="POST" action="/game/play" id="">
-                <input type="submit" value="Ready for the next battle ?">
-            </form>
-        </div>
-    {% endif %}
-    <div class="player">
-        {{ dump(troops) }}
-        {{ dump(enemy) }}
+    <div class="battle-window">
+        {% if scoreBattle > 0 %}
+            <h1 class="win">{{ battleResult }}</h1>
+            <h3 class="win">+{{ scoreBattle }}<h3>
+        {% elseif scoreBattle < 0 %}
+            <h1 class="lose">{{ battleResult }}</h1>
+            <h3 class="lose">{{ scoreBattle }}<h3>
+        {% else %}
+            <h1 class="draw">{{ battleResult }}</h1>
+        {% endif %}
+        <form method="POST" action="/game/play">
+            <input type="submit" value="Next battle" id="button-battle">
+        </form>
     </div>
-    <div class="container-card">
+    {% endif %}
+    <!--CARDS DEFENSERS-->
+    <div class="container-defensers">
         {% for troop in troops %}
             <a href="/game/battle/{{ troop.id }}">
-                <div class="player-card">
+                <div class="defensers">
                     <img src="/assets/images/{{ troop.name }}.png" class="img-card" alt="{{ troop.name }}" name="{{ troop.name }}">
                 </div>
             </a>

@@ -93,13 +93,20 @@ class GameController extends AbstractController
     }
 
     /**
-     *
+     * This method makes it possible to manage the combats between defense and attack.
+     * As input, the method takes as argument the id of the selected defense.
+     * This makes it possible to recover the defense in the database.
+     * Depending on the result of the fight, the castle score is recalculated and sent to the database.
+     * We use the same render as the "play" function, conditional structures allow the display
+     * of new information passed to the view.
      */
     public function battle(int $id)
     {
         $defenser = $this->troopManager->selectOneById($id);
         $attacker = $this->enemyManager->selectOneById(1);
-
+        $castle = $this->castleManager->selectOneById(1);
+        $scoreBattle = $defenser["strength"] - $attacker["strength"] * 2;
+        $newCastleScore = $castle["score"] + $scoreBattle;
         if ($defenser["strength"] > $attacker["strength"]) {
             $battleResult = $defenser["name"] . " WIN";
         } elseif ($defenser["strength"] < $attacker["strength"]) {
@@ -107,11 +114,13 @@ class GameController extends AbstractController
         } else {
             $battleResult = "DRAW";
         }
+        $this->castleManager->deleteAll();
+        $castle["score"] = $newCastleScore;
+        $this->castleManager->updateScore($castle);
+        $this->enemyManager->deleteAll();
         $troops = $this->troopManager->selectAll();
-        $castle = $this->castleManager->selectOneById(1);
-
         return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "attacker" => $attacker,
-        "castle" => $castle, "battleResult" => $battleResult]);
+        "castle" => $castle, "battleResult" => $battleResult, "scoreBattle" => $scoreBattle]);
     }
 
     /**

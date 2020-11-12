@@ -17,8 +17,7 @@ use PDOException;
  */
 class CastleManager extends AbstractManager
 {
-    public const TABLE = 'castle';
-    public const ERROR = false;
+    public const TABLE = "castle";
 
     /**
      * This method adds the castle table to the constructor of the class inherited from the parent class.
@@ -36,14 +35,37 @@ class CastleManager extends AbstractManager
     public function insert(Castle $castle): bool
     {
         try {
-            $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (name, score) VALUES (:name, :score)");
+            $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE .
+            "(name, score) VALUES (:name, :score)");
         } catch (PDOException $error) {
             return false;
         }
         if (
             false !== $insert &&
-            false !== $insert->bindValue('name', $castle->getName(), PDO::PARAM_STR) &&
-            false !== $insert->bindValue('score', $castle->getScore(), PDO::PARAM_INT)
+            false !== $insert->bindValue("name", $castle->getName(), PDO::PARAM_STR) &&
+            false !== $insert->bindValue("score", $castle->getScore(), PDO::PARAM_INT)
+        ) {
+            return $insert->execute();
+        }
+        return false;
+    }
+
+    /**
+     * This method allows you to modify the score of the castle following a battle.
+     * As input you need an array which is retrieved from the database.
+     */
+    public function updateScore(array $castle): bool
+    {
+        try {
+            $insert = $this->pdo->prepare("INSERT INTO " . self::TABLE .
+            "(name, score) VALUES (:name, :score)");
+        } catch (PDOException $error) {
+            return false;
+        }
+        if (
+            false !== $insert &&
+            false !== $insert->bindValue("name", $castle["name"], PDO::PARAM_STR) &&
+            false !== $insert->bindValue("score", $castle["score"], PDO::PARAM_INT)
         ) {
             return $insert->execute();
         }
