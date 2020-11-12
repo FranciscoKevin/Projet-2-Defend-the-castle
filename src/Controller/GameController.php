@@ -105,7 +105,7 @@ class GameController extends AbstractController
         $defenser = $this->troopManager->selectOneById($id);
         $attacker = $this->enemyManager->selectOneById(1);
         $castle = $this->castleManager->selectOneById(1);
-        $scoreBattle = $defenser["strength"] - $attacker["strength"] * 2;
+        $scoreBattle = ($defenser["strength"] - $attacker["strength"]) * 2;
         $newCastleScore = $castle["score"] + $scoreBattle;
         if ($defenser["strength"] > $attacker["strength"]) {
             $battleResult = $defenser["name"] . " WIN";
