@@ -114,4 +114,9 @@ class GameController extends AbstractController
         return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
         "castle" => $castle]);
     }
+
+    public function rules(): string
+    {
+        return $this->twig->render("Game/rules.html.twig");
+    }
 }
