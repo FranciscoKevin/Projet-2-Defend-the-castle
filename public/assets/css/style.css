@@ -114,6 +114,30 @@ body {
         margin-right: 5px;
     }
 }
+
+/***GAME RULES BUTTON***/
+.button-rules {
+    position: absolute;
+    top: 200px;
+    right: 10px;
+    display: block;
+    height: 50px;
+    width: 130px;
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-tertiary);
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+}
+
+.button-rules:hover {
+    background-color: var(--color-tertiary);
+    color: var(--color-secondary);
+    cursor: var(--cursor);
+}
+
 /***RESTART BUTTON***/
 .restart-button {
     position: absolute;
