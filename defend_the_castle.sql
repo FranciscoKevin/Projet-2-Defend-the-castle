@@ -24,8 +24,8 @@ DROP TABLE IF EXISTS `castle`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `castle` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `score` int DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `score` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -49,8 +49,8 @@ DROP TABLE IF EXISTS `enemy`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `enemy` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `strength` int DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `strength` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -61,7 +61,7 @@ CREATE TABLE `enemy` (
 
 LOCK TABLES `enemy` WRITE;
 /*!40000 ALTER TABLE `enemy` DISABLE KEYS */;
-INSERT INTO `enemy` VALUES (1,'Lancer',72);
+INSERT INTO `enemy` VALUES (1,'Lancer',25);
 /*!40000 ALTER TABLE `enemy` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -74,9 +74,9 @@ DROP TABLE IF EXISTS `troop`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `troop` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `strength` int DEFAULT NULL,
-  `tiredness` int DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
+  `strength` int NOT NULL,
+  `tiredness` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -87,7 +87,7 @@ CREATE TABLE `troop` (
 
 LOCK TABLES `troop` WRITE;
 /*!40000 ALTER TABLE `troop` DISABLE KEYS */;
-INSERT INTO `troop` VALUES (1,'Lancer',98,100),(2,'Horseman',99,100),(3,'Archer',26,100);
+INSERT INTO `troop` VALUES (1,'Horseman',56,100),(2,'Archer',73,100),(3,'Lancer',32,100);
 /*!40000 ALTER TABLE `troop` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -100,4 +100,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-18  9:30:24
+-- Dump completed on 2020-11-18 15:57:13
