@@ -14,21 +14,23 @@ namespace App\Model;
  */
 class Castle
 {
-    public const POSSIBLE_NAMES = ["Kaamelott", "Barad-dûr", "Winterfell", "Defend the Castle"];
+    public const POSSIBLE_NAMES = [
+        "Kaamelott",
+        "Barad-dûr",
+        "Winterfell",
+        "Defend the Castle"];
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var int
-     */
-    private $score;
+    private string $name;
+    private int $score;
 
     public function resetScore(): void
     {
         $this->score = 0;
+    }
+
+    public function setScore(int $newCastleScore)
+    {
+        $this->score = $newCastleScore;
     }
 
     public function getScore(): int

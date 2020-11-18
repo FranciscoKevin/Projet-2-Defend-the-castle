@@ -16,7 +16,7 @@ body {
     font-family: var(--font-primary);
 }
 /***DEFENSIVE CARDS***/
-.container-card {
+.container-defensers {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -26,19 +26,18 @@ body {
     background-color: var(--color-primary);
     border-radius: 20px 20px 0px 0px;
 }
-.player-card {
+.defensers {
     position: relative;
     bottom: 0px;
-    width: 33%;
     height: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+    transition: bottom 2s ease-in-out;
 }
-.player-card:hover {
-    bottom: 150px;
-    transition: 1s;
+.defensers:hover {
+    bottom: 200px;
     cursor: var(--cursor);
 }
 .img-card {
@@ -54,7 +53,7 @@ body {
     background-color: var(--color-primary);
     border-radius: 0px 0px 20px 20px;
 }
-.container-item {
+.container-items {
     margin: 5px;
 }
 .item-header {
@@ -90,18 +89,13 @@ body {
     }
 }
 /***HEADER: second block***/
-.card-attack {
+.attacker {
     position: relative;
     top: -150px;
     height: 250px;
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
-}
-.card-attack:hover {
-    top: 10px;
-    transition: 1s;
-    cursor: var(--cursor);
 }
 /***HEADER: third block***/
 @media screen and (min-width: 1000px) {
@@ -133,15 +127,6 @@ body {
     background-color: var(--color-tertiary);
     color: var(--color-secondary);
     cursor: var(--cursor);
-}
-/***Sert uniquement à vérifier que la connexion à la bdd fonctionne correctement
-=> A supprimer par la suite***/
-.player {
-    color: var(--color-tertiary);
-    background-color: var(--color-secondary);
-    margin: 200px auto;
-    padding: 10px;
-    color: yellow;
 }
 /***RESTART WINDOW***/
 #restart-filigram {
@@ -214,7 +199,7 @@ label{
     .button-no-yes {
         margin: 15px;
         padding: 15px;
-        width: 80;
+        width: 80px;
         font-size: 25px;
     }
 }
@@ -222,7 +207,7 @@ label{
     .button-no-yes {
         margin: 10px;
         padding: 10px;
-        width: 60;
+        width: 60px;
         font-size: 20px;
     }
 }
@@ -275,21 +260,21 @@ label{
         font-size: 20px;
     }
 }
-input[type="radio"] {
+.radio-castle {
     display:none;
 }
-input[type="radio"] + label {
+.radio-castle + label {
     color: var(--color-tertiary);
     cursor: var(--cursor);
 }
-input[type="radio"] + label span {
+.radio-castle + label span {
     display: inline-block;
     width: 50px;
     height: 50px;
     margin-right: 30px;
     background: url(../images/red-cross.png) no-repeat center;
 }
-input[type="radio"]:checked + label span {
+.radio-castle:checked + label span {
     background: url(../images/castle-50.png) no-repeat center;
 }
 #button-new-game {
@@ -311,11 +296,11 @@ input[type="radio"]:checked + label span {
     transition: 0.5s;
 }
 @media screen and (max-width: 800px) {
-    input[type="radio"] + label span {
+    .radio-castle + label span {
         width: 40px;
         height: 40px;
     }
-    input[type="radio"]:checked + label span {
+    .radio-castle:checked + label span {
         background: url(../images/castle-40.png) no-repeat center;
     }
     #button-new-game {
@@ -326,11 +311,11 @@ input[type="radio"]:checked + label span {
     }
 }
 @media screen and (max-width: 600px) {
-    input[type="radio"] + label span {
+    .radio-castle + label span {
         width: 30px;
         height: 30px;
     }
-    input[type="radio"]:checked + label span {
+    .radio-castle:checked + label span {
         background: url(../images/castle-30.png) no-repeat center;
     }
     #button-new-game {
@@ -338,5 +323,75 @@ input[type="radio"]:checked + label span {
         padding: 10px;
         width: 200px;
         font-size: 15px;
+    }
+}
+/***BATTLE WINDOW***/
+.battle-window {
+    width: 600px;
+    height: 300px;
+    margin: 180px auto;
+    padding: 10px;
+    background-color: var(--color-secondary);
+    border-radius: 20px;
+    color: var(--color-tertiary);
+    font-size: 30px;
+    text-align: center;
+}
+.win {
+    color: green;
+}
+.lose {
+    color: red;
+}
+#button-battle {
+    height: 60px;
+    width: 200px;
+    border-radius: 15px;
+    background-color: var(--color-secondary);
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    line-height: 45px;
+    border: none;
+}
+#button-battle:hover {
+    background-color: var(--color-tertiary);
+    color: var(--color-secondary);
+    transform: scale(1.1);
+    transition: 0.5s;
+    cursor: var(--cursor);
+}
+@media screen and (max-width: 800px) {
+    .battle-window {
+        width: 400px;
+        height: 250px;
+        margin: 200px auto;
+        padding: 10px;
+        border-radius: 15px;
+        font-size: 25px;
+    }
+    #button-battle {
+        height: 50px;
+        width: 170px;
+        border-radius: 12px;
+        font-size: 20px;
+        line-height: 40px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .battle-window {
+        width: 300px;
+        height: 200px;
+        margin: 220px auto;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+    #button-battle {
+        height: 40px;
+        width: 150px;
+        border-radius: 10px;
+        font-size: 15px;
+        line-height: 35px;
     }
 }
