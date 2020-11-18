@@ -15,7 +15,7 @@ use PDOException;
 /**
  * This class allows you to insert the properties of the enemy, created with the Troop class, in the database.
  */
-class EnemyManager extends AbstractManager
+class EnemyManager extends SubAbstractManager
 {
     public const TABLE = "enemy";
     public const ERROR = -1;

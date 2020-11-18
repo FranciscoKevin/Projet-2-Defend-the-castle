@@ -15,7 +15,7 @@ use PDOException;
 /**
  * This class allows you to insert the properties of the troops, created with the Troop class, in the database.
  */
-class TroopManager extends AbstractManager
+class TroopManager extends SubAbstractManager
 {
     public const TABLE = "troop";
 

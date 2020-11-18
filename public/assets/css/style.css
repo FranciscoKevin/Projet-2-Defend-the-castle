@@ -199,7 +199,7 @@ label{
     .button-no-yes {
         margin: 15px;
         padding: 15px;
-        width: 80;
+        width: 80px;
         font-size: 25px;
     }
 }
@@ -207,7 +207,7 @@ label{
     .button-no-yes {
         margin: 10px;
         padding: 10px;
-        width: 60;
+        width: 60px;
         font-size: 20px;
     }
 }
@@ -360,7 +360,6 @@ label{
     transform: scale(1.1);
     transition: 0.5s;
     cursor: var(--cursor);
-
 }
 @media screen and (max-width: 800px) {
     .battle-window {
