@@ -14,44 +14,10 @@
         {% endif %}
         </div>
         <!--CASTLE NAME-->
-        <div class="container-item container-name">
+        <div class="container-items container-name">
             <p class="item-header castle-name">{{ castle.name }}</p>
         </div>
     </div>
-    <!--GAME RULES-->
-    <a class="button-rules" href="/game/rules">Game rules</a>
-    
-    <!--RESTART-->
-    <label for="restart-button" class="restart-button">Restart</label>
-    <input type="checkbox" id="restart-button"/>
-    <div id="restart-filigram">
-        <div id="restart-message">
-            <h3>Hello valiant defender of the castle !</h3>
-            <h3>We need you, do you really want to lay down the arms</h3>
-            <h5>If you click on yes, the castle score will be reset</h5>
-            <label for="restart-button" class="button-no-yes" id="button-no">No</label>
-            <label for="castle-choice" class="button-no-yes" id="button-yes">Yes</label>
-            <input type="checkbox" id="castle-choice"/>
-            <div id="restart-filigram">
-                <form method="POST" action="/game/init" id="castle-message">
-                    <p>Select our castle, if you don't make a choice,<br>
-                    the default castle name will be "Defend the Castle"</p>
-                    <div>
-                        <input type="radio" name="castle" class="radio-castle" id="Kaamelott" value="Kaamelott">
-                        <label for="Kaamelott"><span></span>Kaamelott</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="castle" class="radio-castle" id="Barad-dûr" value="Barad-dûr">
-                        <label for="Barad-dûr"><span></span>Barad-dûr</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="castle" class="radio-castle" id="Winterfell" value="Winterfell">
-                        <label for="Winterfell"><span></span>Winterfell</label>
-                    </div>
-                    <input type="submit" id="button-new-game" value="New Castle">
-                </form>
-            </div>
-        </div>
     </div>
     <!--BATTLE-->
     {% if battleResult is defined %}
