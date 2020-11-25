@@ -24,7 +24,6 @@ body {
     display: flex;
     justify-content: space-around;
     background-color: var(--color-primary);
-    border-radius: 20px 20px 0px 0px;
 }
 .defensers {
     position: relative;
@@ -34,7 +33,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    transition: bottom 2s ease-in-out;
+    transition: bottom 1s ease-in;
 }
 .defensers:hover {
     bottom: 200px;
@@ -57,6 +56,7 @@ body {
     margin: 5px;
 }
 .item-header {
+    margin: 5px;
     padding: 5px;
     height: 50px;
     background-color: var(--color-secondary);
@@ -67,25 +67,14 @@ body {
     line-height: 50px;
     text-transform: uppercase;
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
     .item-header {
-        font-size: 15px;
+        font-size: 16px;
     }
 }
 @media screen and (max-width: 600px) {
     .item-header {
-        line-height: 25px;
-    }
-}
-/***HEADER: first block***/
-@media screen and (min-width: 1000px) {
-    .container-score {
-        margin-left: 80px;
-    }
-}
-@media screen and (max-width: 1000px) {
-    .container-score {
-        margin-left: 5px;
+        font-size: 12px;
     }
 }
 /***HEADER: second block***/
@@ -97,26 +86,11 @@ body {
     justify-content: center;
     margin-bottom: 5px;
 }
-/***HEADER: third block***/
-@media screen and (min-width: 1000px) {
-    .container-name {
-        margin-right: 80px;
-    }
-}
-@media screen and (max-width: 1000px) {
-    .container-name {
-        margin-right: 5px;
-    }
-}
-
-/***GAME RULES BUTTON***/
-.button-rules {
-    position: absolute;
-    top: 200px;
-    right: 10px;
+/***BUTTONS DESIGN___START***/
+.button {
     display: block;
     height: 50px;
-    width: 130px;
+    width: 200px;
     border-radius: 5px;
     background-color: var(--color-primary);
     color: var(--color-tertiary);
@@ -125,51 +99,124 @@ body {
     line-height: 50px;
     text-decoration: none;
 }
-
-.button-rules:hover {
+@media screen and (max-width: 800px) {
+    .button {
+        width: 160px;
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .button {
+        width: 120px;
+        font-size: 16px;
+    }
+}
+.button:hover {
     background-color: var(--color-tertiary);
     color: var(--color-secondary);
     cursor: var(--cursor);
+    transform: scale(1.1);
+    transition: 0.5s;
 }
+.btn-no,
+.btn-yes {
+    margin: 20px auto;
+}
+.btn-yes:hover,
+.btn-new-game:hover {
+    background-color: red;
+    color: white;
+}
+.btn-new-game {
+    display: inline-block;
+    margin: 20px;
+    padding: 20px;
+    width: 300px;
+    background-color: var(--color-tertiary);
+    border: none;
+    color: var(--color-secondary);
+    font-family: var(--font-primary);
+    font-size: 30px;
+    cursor: var(--cursor);
+}
+/***BUTTONS DESIGN___END***/
 
-/***RESTART BUTTON***/
-.restart-button {
+/***BUTTONS POSITIONS___START***/
+.btn-menu {
     position: absolute;
     top: 130px;
-    right: 10px;
-    display: block;
-    height: 50px;
-    width: 100px;
-    border-radius: 5px;
-    background-color: var(--color-primary);
-    color: var(--color-tertiary);
-    font-size: 20px;
-    text-align: center;
-    line-height: 50px;
+    right: 20px;
 }
-.restart-button:hover {
-    background-color: var(--color-tertiary);
-    color: var(--color-secondary);
-    cursor: var(--cursor);
+.btn-restart {
+    position: absolute;
+    top: 200px;
+    right: 20px;
 }
-/***RESTART WINDOW***/
-#restart-filigram {
+.btn-rules {
+    position: absolute;
+    top: 270px;
+    right: 20px;
+}
+.btn-faq {
+    position: absolute;
+    top: 340px;
+    right: 20px;
+}
+.btn-legal {
+    position: absolute;
+    top: 410px;
+    right: 20px;
+}
+/***BUTTONS POSITIONS___END***/
+
+/***FILIGRAMS___START***/
+.filigram {
     display: none;
     position: fixed;               
-    top: 0; right:0; bottom:0; left: 0;
+    top: 0; right:0; bottom:0;
     background-color: var(--color-primary);
     z-index : 1000;
 }
-#restart-button {
+.flg-menu {
+    width: 240px;
+    z-index : 1000;
+    background: url("../images/wall.png");
+}
+@media screen and (max-width: 800px) {
+    .flg-menu {
+        width: 200px;
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .flg-menu {
+        width: 160px;
+        font-size: 16px;
+    }
+}
+.flg-restart,
+.flg-castle {
+    left: 0;
+    z-index : 900;
+}
+#btn-menu,
+#btn-restart,
+#btn-rules,
+#btn-yes {
     display : none;
 }
-#restart-button:checked + #restart-filigram {
+#btn-menu:checked + .flg-menu,
+#btn-restart:checked + .flg-restart,
+#btn-yes:checked + .flg-castle {
     display: block;
 }
 label{
     cursor: var(--cursor);
 }
-#restart-message, #castle-message {
+/***FILIGRAMS___END***/
+
+/***MESSAGES___START***/
+.message {
     width: 600px;
     height: 400px;
     margin: 200px auto;
@@ -181,11 +228,12 @@ label{
     font-size: 25px;
     text-align: center;
 }
-#restart-message h3, #restart-message p {
+.restart-message h3,
+.restart-message p {
     margin: 35px 5px;
 }
 @media screen and (max-width: 800px) {
-    #restart-message, #castle-message {
+    .message {
         width: 400px;
         height: 350px;
         margin: 250px auto;
@@ -195,7 +243,7 @@ label{
     }
 }
 @media screen and (max-width: 600px) {
-    #restart-message, #castle-message {
+    .message {
         width: 300px;
         height: 280px;
         margin: 300px auto;
@@ -209,53 +257,6 @@ label{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.button-no-yes {
-    display: inline-block;
-    margin: 20px;
-    padding: 20px;
-    width: 100px;
-    font-size: 30px;
-    text-transform: uppercase;
-    cursor: var(--cursor);
-}
-@media screen and (max-width: 800px) {
-    .button-no-yes {
-        margin: 15px;
-        padding: 15px;
-        width: 80px;
-        font-size: 25px;
-    }
-}
-@media screen and (max-width: 600px) {
-    .button-no-yes {
-        margin: 10px;
-        padding: 10px;
-        width: 60px;
-        font-size: 20px;
-    }
-}
-#button-no {
-    background-color: var(--color-primary);
-    color: white;
-}
-#button-yes {
-    background-color: var(--color-tertiary);
-    color: var(--color-secondary);
-    text-decoration: none;
-}
-#button-yes:hover {
-    background-color: red;
-    color: white;
-    transform: scale(1.1);
-    transition: 0.5s;
-}
-/***CASTLE CHOICE WINDOW***/
-#castle-choice {
-    display : none;
-}
-#castle-choice:checked + #restart-filigram {
-    display: block;
 }
 #castle-message p {
     margin: 0;
@@ -301,24 +302,7 @@ label{
 .radio-castle:checked + label span {
     background: url(../images/castle-50.png) no-repeat center;
 }
-#button-new-game {
-    display: inline-block;
-    margin: 20px;
-    padding: 20px;
-    width: 300px;
-    background-color: var(--color-tertiary);
-    border: none;
-    color: var(--color-secondary);
-    font-family: var(--font-primary);
-    font-size: 30px;
-    cursor: var(--cursor);
-}
-#button-new-game:hover {
-    background-color: red;
-    color: white;
-    transform: scale(1.1);
-    transition: 0.5s;
-}
+
 @media screen and (max-width: 800px) {
     .radio-castle + label span {
         width: 40px;
@@ -327,7 +311,7 @@ label{
     .radio-castle:checked + label span {
         background: url(../images/castle-40.png) no-repeat center;
     }
-    #button-new-game {
+    .btn-new-game {
         margin: 15px;
         padding: 15px;
         width: 250px;
@@ -342,7 +326,7 @@ label{
     .radio-castle:checked + label span {
         background: url(../images/castle-30.png) no-repeat center;
     }
-    #button-new-game {
+    .btn-new-game {
         margin: 10px;
         padding: 10px;
         width: 200px;
@@ -417,5 +401,35 @@ label{
         border-radius: 10px;
         font-size: 15px;
         line-height: 35px;
+    }
+}
+.game-creator {
+    position: absolute;
+    bottom: 0;
+    margin: 20px;
+    padding: 5px;
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    text-align: center;
+    color: whitesmoke;
+    font-size: 16px;
+    line-height: 24px;
+}
+.game-creator a {
+    padding: 2px 10px;
+    border-radius: 15px;
+    background-color: whitesmoke;
+    cursor: var(--cursor);
+}
+@media screen and (max-width: 800px) {
+    .game-creator{
+        font-size: 13px;
+        line-height: 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .game-creator{
+        font-size: 10px;
+        line-height: 16px;
     }
 }
