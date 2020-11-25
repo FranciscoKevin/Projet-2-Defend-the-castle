@@ -15,7 +15,7 @@ use PDOException;
 /**
  * This class allows you to insert the properties of the castle, created with the Castle class, in the database.
  */
-class CastleManager extends AbstractManager
+class CastleManager extends SubAbstractManager
 {
     public const TABLE = "castle";
 
