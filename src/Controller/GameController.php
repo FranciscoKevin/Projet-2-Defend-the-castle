@@ -172,4 +172,9 @@ class GameController extends AbstractController
     {
         return $this->twig->render("Game/rules.html.twig");
     }
+
+    public function legal(): string
+    {
+        return $this->twig->render("Game/legal.html.twig");
+    }
 }
