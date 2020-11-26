@@ -1,0 +1,91 @@
+@font-face {
+    font-family: Ancien;
+    src: url(../font/1529\ Champ\ Fleury\ W01\ Regular.ttf);
+}
+
+body {
+    background-color: rgb(15, 15, 15);
+    font-family: Ancien;
+}
+
+.background {
+    background: url(../images/Chateau.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 14vw; padding-bottom: 14vw;
+}
+
+.icon {
+    position: relative;
+    padding: 10px;
+    background: url(../images/icon.png);
+    z-index: 10;
+}
+
+.title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10vh;
+    line-height: 64px;
+    text-align: center;
+    color: #F8A15A;
+}
+
+.box {
+    color: white;
+}
+
+h3 {
+    text-decoration: underline;
+    font-size: 7vh;
+    text-align: center;
+}
+
+.sword {
+    font-size: 5vh;
+    margin-top: 10rem;
+}
+
+p {
+    font-size: 3vh;
+    text-align: center;
+    margin-top: -3rem;
+}
+
+.firstQ {
+    line-height: normal;
+    margin-bottom: 10rem;
+}
+
+.secondQ {
+    line-height: normal;
+    margin-bottom: 10rem;
+}
+
+.thirdQ {
+    line-height: normal;
+    margin-bottom: 10rem;
+}
+
+.fourthQ {
+    line-height: normal;
+    margin-bottom: 10rem;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    margin-bottom: 3rem; margin-top: 3rem;
+    transition: 1s;
+    font-size: 5vh;
+}
+
+a:hover {
+    filter: drop-shadow(0 0 0.75rem rgb(51, 51, 51));
+}
