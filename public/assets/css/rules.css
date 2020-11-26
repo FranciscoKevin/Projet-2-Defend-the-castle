@@ -1,0 +1,73 @@
+:root {
+    --color-primary: #3f3f3fbd;
+    --color-secondary: rgba(0, 0, 0, 0.6);
+    --color-secondary-hover: rgba(0, 0, 0);
+    --color-tertiary: #F5C009;
+    --font-primary: cursive;
+    --cursor: url(../images/sword.cur), pointer;
+}
+
+body
+{
+    background-image: url("../images/background_regle.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.box
+{
+width: 45%;
+margin: auto;
+margin-top: 60px ;
+margin-bottom: 60px;
+text-align: center;
+background-color: black;
+opacity: 0.5;
+color: white;
+border-radius: 10px;
+padding: 10px;
+box-shadow: 10px 5px 5px black;
+font-size: 1.1em;
+line-height: 2em;
+}
+
+.button-rules {
+    height: 100px;
+    width: 130px;
+    padding:5px;
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-tertiary);
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+}
+
+.button-rules:hover {
+    background-color: var(--color-tertiary);
+    color: var(--color-secondary);
+    cursor: var(--cursor);
+}
+
+.anim1 {
+	width: 90px; height: 90px;
+	margin: 3em auto;
+	border: 20px solid #aaa;
+	border-radius: 30px;
+	transition: border-radius 2s, border-color 3s; /* transition quand la souris quitte l'effet */
+}
+
+.anim1 img {
+	margin-top:12px;
+}
+.anim1:hover {
+	border-color: #333;
+	transform: rotate(1080deg);
+	border-radius: 50%;
+	transition: all 2s; /* transition quand la souris passe sur l'effet */
+}

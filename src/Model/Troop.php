@@ -11,22 +11,17 @@ namespace App\Model;
 
 class Troop
 {
-    /**
-     * @var int
-     */
-    private $level;
+    private int $id;
+    private string $name;
+    private int $strength;
+    private int $tiredness;
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    private $id;
-
-    public const NAMES = ['Archer', 'Horseman', 'Lancer'];
-
+    public const NAMES = ["Archer", "Horseman", "Lancer"];
     public const LEVEL_MIN = 20;
     public const LEVEL_MAX = 100;
+    public const TIREDNESS_MIN = 0;
+    public const TIREDNESS_MAX = 100;
+    public const BONUS = 20;
 
     public function setId(int $id): void
     {
@@ -36,21 +31,6 @@ class Troop
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function setRandomLevel(): void
-    {
-        $this->level = random_int(self::LEVEL_MIN, self::LEVEL_MAX);
-    }
-
-    public function setLevel(int $level): void
-    {
-        $this->level = $level;
-    }
-
-    public function getLevel(): int
-    {
-        return $this->level;
     }
 
     public function setName(string $name): void
@@ -66,5 +46,42 @@ class Troop
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setRandomStrength(): void
+    {
+        $this->strength = random_int(self::LEVEL_MIN, self::LEVEL_MAX);
+    }
+
+    public function setStrength(int $strength): void
+    {
+        $this->strength = $strength;
+    }
+
+    public function getStrength(): int
+    {
+        return $this->strength;
+    }
+
+    public function resetTiredness(): void
+    {
+        $this->tiredness = self::TIREDNESS_MAX;
+    }
+    public function getTiredness(): int
+    {
+        return $this->tiredness;
+    }
+
+    public static function bonus($enemyName, $troopName)
+    {
+        if (
+            ($enemyName === 'Lancer' && $troopName === 'Archer') ||
+            ($enemyName === 'Horseman' && $troopName === 'Lancer') ||
+            ($enemyName === 'Archer' && $troopName === 'Horseman')
+        ) {
+            return self::BONUS;
+        } else {
+            return 0;
+        }
     }
 }
