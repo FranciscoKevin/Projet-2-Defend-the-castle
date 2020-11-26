@@ -51,9 +51,7 @@ class UserController extends AbstractController
                     $userRegister->insertUser($name, $mail, $password);
                     header('Location: /user/login');
                 } catch (\PDOException $e) {
-                    return $this->twig->render("Error/503.html.twig", [
-                        'errormsg' => "Cette adresse mail est déja utilisée."
-                        ]);
+                    echo "Mail Already use";
                 }
             }
         }
