@@ -10,29 +10,42 @@
         <input id="btn-restart" type="checkbox"/>
         <div class="filigram flg-restart">
             <div class="message msg-restart">
-                <h3>Hello valiant defender of the castle !<br>
-                We need you, do you really want to lay down the arms</h3>
+                <h4>Hello valiant defender of the castle !<br>
+                We need you, do you really want to lay down the arms</h4>
                 <h5>If you click on yes, the castle score will be reset</h5>
                 <label for="btn-restart" class="button btn-no">No</label>
                 <label for="btn-yes" class="button btn-yes">Yes</label>
                 <input id="btn-yes" type="checkbox"/>
                 <div class="filigram flg-castle">
-                    <form method="POST" action="/game/init" class="message msg-castle">
-                        <p>Select our castle, if you don't make a choice,<br>
-                        the default castle name will be "Defend the Castle"</p>
-                        <div>
-                            <input id="Kaamelott" type="radio" name="castle" class="radio-castle" value="Kaamelott">
-                            <label for="Kaamelott"><span></span>Kaamelott</label>
+                    <form method="POST" action="/game/initCastle" class="message msg-castle" enctype="multipart/form-data">
+                        <div class="default-castle">
+                            <h4>Choice 1 - Default castle: Defend the Castle</h4>
                         </div>
-                        <div>
-                            <input id="Barad-dûr" type="radio" name="castle" class="radio-castle" value="Barad-dûr">
-                            <label for="Barad-dûr"><span></span>Barad-dûr</label>
+                        <div class="custom-castles">
+                            <div class="custom-castle">
+                                <h4>Choice 2 - Custom castles</h4>
+                                <div>
+                                    <input id="Winterfell" type="radio" name="castle" class="radio-castle" value="Winterfell">
+                                    <label for="Winterfell"><span></span>Winterfell</label>
+                                </div>
+                                <div>
+                                    <input id="Barad-dûr" type="radio" name="castle" class="radio-castle" value="Barad-dûr">
+                                    <label for="Barad-dûr"><span></span>Barad-dûr</label>
+                                </div>
+                                <div>
+                                    <input id="Castlevania" type="radio" name="castle" class="radio-castle" value="Castlevania">
+                                    <label for="Castlevania"><span></span>Castlevania</label>
+                                </div>
+                            </div>
+                            <div class="my-castle">
+                                <h4>Choice 3 - Your castle</h4>
+                                <label for="my-castle">Name</label>
+                                <input id="my-castle" type="text" name="my-castle">
+                                <label for="castle-background">Background (max 2Mo, jpg, jpeg, png, gif)</label>
+                                <input id="castle-background" type="file" name="bg-castle-upload"/>
+                            </div>
                         </div>
-                        <div>
-                            <input id="Winterfell" type="radio" name="castle" class="radio-castle" value="Winterfell">
-                            <label for="Winterfell"><span></span>Winterfell</label>
-                        </div>
-                        <input type="submit" class="btn-new-game" value="New Castle">
+                        <input type="submit" class="button btn-new-game" value="New Castle">
                     </form>
                 </div>
             </div>
@@ -40,8 +53,15 @@
         <a class="button btn-rules" href="/game/rules">Game rules</a>
         <a class="button btn-faq" href="/game/faq">FAQ</a>
         <a class="button btn-legal" href="/game/legal">Legal notice</a>
-        <p class="game-creator">This game was made by: Maxime AUNEAU, Achille BELLAY, Thomas CLEMENT and Kevin FRANCISCO<br>
-        Students from the<br>
-        <a href="https://www.wildcodeschool.com/fr-FR" target="blank">Wild Code School</a></p>
+        <div class="game-creator">This game was made by:
+            <ul>
+                <li>Maxime AUNEAU</li>
+                <li>Achille BELAY</li>
+                <li>Thomas CLEMENT</li>
+                <li>Kevin FRANCISCO</li>
+            </ul>
+            <p>Students from the<br>
+            <a href="https://www.wildcodeschool.com/fr-FR" target="blank">Wild Code School</a></p>
+        </div>
     </div>
 </nav>

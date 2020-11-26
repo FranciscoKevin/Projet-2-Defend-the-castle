@@ -1,0 +1,10 @@
+body {
+    background: url(../images/bg-error.png) no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+@media screen and (max-width: 800px) {
+    body {
+        background: black;
+    }
+}

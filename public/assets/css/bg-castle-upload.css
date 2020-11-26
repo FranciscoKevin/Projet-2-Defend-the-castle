@@ -1,0 +1,5 @@
+body {
+    background: url(../../upload/bg-castle-upload.png) no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}

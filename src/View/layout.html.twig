@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/fcg.css">
     <link rel="icon" href="/assets/images/castle-50.png">
+    <!--CASTLE BACKGROUNDS-->
+    {% if castleBackground == "error upload" or castleBackground == "error type file" %}
+        <link rel="stylesheet" href="/assets/css/bg-error.css">
+    {% else %}
+        {% if castle.name == "Defend the Castle" %}
+            <link rel="stylesheet" href="/assets/css/bg-defend-the-castle.css">
+        {% elseif castle.name == "Castlevania" %}
+            <link rel="stylesheet" href="/assets/css/bg-castlevania.css">
+        {% elseif castle.name == "Barad-dûr" %}
+            <link rel="stylesheet" href="/assets/css/bg-barad-dur.css">
+        {% elseif castle.name == "Winterfell" %}
+            <link rel="stylesheet" href="/assets/css/bg-winterfell.css">
+        {% else %}
+            <link rel="stylesheet" href="/assets/css/bg-castle-upload.css">
+        {% endif %}
+    {% endif %}
 </head>
 <body>
     {% block content %}{% endblock %}

@@ -32,8 +32,9 @@ body {
     margin-top: 10px;
     transition: bottom 1s ease-in;
 }
+
 .defensers:hover {
-    bottom: 200px;
+    bottom: 160px;
     cursor: var(--cursor);
 }
 .img-card {
@@ -41,6 +42,26 @@ body {
     max-height: 100%;
     border-radius: 10px;
 }
+
+@keyframes slide{
+    from {
+      top: -80px;
+    }
+    to {
+        top: 40px;
+      }
+    }
+
+.attacker{
+    position: relative;
+    top: -80px;
+    animation-name: slide;
+    animation-timing-function: ease-in-out;
+    animation-duration: 2s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+}
+
 /***HEADER***/
 .header {
     display: grid;
@@ -516,3 +537,4 @@ label{
         font-size: 15px;
     }
 }
+
