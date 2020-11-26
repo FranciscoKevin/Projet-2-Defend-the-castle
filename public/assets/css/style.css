@@ -10,9 +10,6 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(../images/terrain.png) no-repeat center fixed; 
-    -webkit-background-size: cover;
-    background-size: cover;
     font-family: var(--font-primary);
 }
 /***DEFENSIVE CARDS***/
@@ -50,14 +47,13 @@ body {
     grid-template-columns: 1fr 1fr 1fr;
     height: 110px;
     background-color: var(--color-primary);
-    border-radius: 0px 0px 20px 20px;
 }
 .container-items {
     margin: 5px;
 }
 .item-header {
     margin: 5px;
-    padding: 5px;
+    padding: 0;
     height: 50px;
     background-color: var(--color-secondary);
     color: var(--color-tertiary);
@@ -89,26 +85,27 @@ body {
 /***BUTTONS DESIGN___START***/
 .button {
     display: block;
-    height: 50px;
+    padding: 15px 0;
     width: 200px;
     border-radius: 5px;
     background-color: var(--color-primary);
     color: var(--color-tertiary);
     font-size: 20px;
     text-align: center;
-    line-height: 50px;
     text-decoration: none;
 }
 @media screen and (max-width: 800px) {
     .button {
         width: 160px;
         font-size: 18px;
+        padding: 12px 0;
     }
 }
 @media screen and (max-width: 600px) {
     .button {
         width: 120px;
         font-size: 16px;
+        padding: 10px 0;
     }
 }
 .button:hover {
@@ -120,7 +117,22 @@ body {
 }
 .btn-no,
 .btn-yes {
-    margin: 20px auto;
+    margin: 30px auto;
+    font-size: 25px;
+}
+@media screen and (max-width: 800px) {
+    .btn-no,
+    .btn-yes {
+        margin: 25px auto;
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .btn-no,
+    .btn-yes {
+        margin: 20px auto;
+        font-size: 20px;
+    }
 }
 .btn-yes:hover,
 .btn-new-game:hover {
@@ -129,10 +141,9 @@ body {
 }
 .btn-new-game {
     display: inline-block;
+    background-color: var(--color-tertiary);
     margin: 20px;
     padding: 20px;
-    width: 300px;
-    background-color: var(--color-tertiary);
     border: none;
     color: var(--color-secondary);
     font-family: var(--font-primary);
@@ -142,6 +153,11 @@ body {
 /***BUTTONS DESIGN___END***/
 
 /***BUTTONS POSITIONS___START***/
+.btn-log {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+}
 .btn-menu {
     position: absolute;
     top: 130px;
@@ -180,7 +196,7 @@ body {
 .flg-menu {
     width: 240px;
     z-index : 1000;
-    background: url("../images/wall.png");
+    background: url(../images/wall.png);
 }
 @media screen and (max-width: 800px) {
     .flg-menu {
@@ -218,25 +234,22 @@ label{
 /***MESSAGES___START***/
 .message {
     width: 600px;
-    height: 400px;
-    margin: 200px auto;
-    padding: 15px;
-    background-color: var(--color-secondary);
+    margin: 50px auto;
+    padding: 10px;
+    background-color: var(--color-secondary-hover);
     border: 2px solid var(--color-tertiary);
     border-radius: 20px;
     color: var(--color-tertiary);
     font-size: 25px;
     text-align: center;
 }
-.restart-message h3,
-.restart-message p {
-    margin: 35px 5px;
+.message h4,
+.message p {
+    margin: 5px;
 }
 @media screen and (max-width: 800px) {
     .message {
         width: 400px;
-        height: 350px;
-        margin: 250px auto;
         padding: 12px;
         border-radius: 15px;
         font-size: 20px;
@@ -245,48 +258,60 @@ label{
 @media screen and (max-width: 600px) {
     .message {
         width: 300px;
-        height: 280px;
-        margin: 300px auto;
         padding: 10px;
         border-radius: 10px;
         font-size: 15px;
     }
 }
-#castle-message {
+.msg-castle {
+    margin: 50px auto;
+}
+.msg-castle h4 {
+    text-align: left;
+}
+.default-castle {
+    border-bottom: solid 1px var(--color-tertiary);
+    padding: 10px;
+}
+.custom-castle {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 10px;
+    border-bottom: solid 1px var(--color-tertiary);
 }
-#castle-message p {
-    margin: 0;
-    font-size: 15px;
+.my-castle {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-bottom: solid 1px var(--color-tertiary);
 }
-#castle-message div {
-    width: 300px;
-    padding: 15px;
-    font-size: 30px;
+.my-castle label {
+    text-align: left;
+    padding: 10px;
+}
+.my-castle input {
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: var(--cursor);
 }
 @media screen and (max-width: 800px) {
-    #castle-message p {
-        font-size: 12px;
-    }
-    #castle-message div {
-        padding: 12px;
-        font-size: 25px;
+    .my-castle input {
+        text-align: center;
+        padding: 8px;
+        font-size: 16px;
     }
 }
 @media screen and (max-width: 600px) {
-    #castle-message p {
-        font-size: 10px;
-    }
-    #castle-message div {
-        padding: 10px;
-        font-size: 20px;
+    .my-castle input {
+        text-align: center;
+        padding: 6px;
+        font-size: 12px;
     }
 }
 .radio-castle {
-    display:none;
+    display: none;
 }
 .radio-castle + label {
     color: var(--color-tertiary);
@@ -302,7 +327,6 @@ label{
 .radio-castle:checked + label span {
     background: url(../images/castle-50.png) no-repeat center;
 }
-
 @media screen and (max-width: 800px) {
     .radio-castle + label span {
         width: 40px;
@@ -314,7 +338,7 @@ label{
     .btn-new-game {
         margin: 15px;
         padding: 15px;
-        width: 250px;
+        width: 160px;
         font-size: 20px;
     }
 }
@@ -329,11 +353,11 @@ label{
     .btn-new-game {
         margin: 10px;
         padding: 10px;
-        width: 200px;
+        width: 120px;
         font-size: 15px;
     }
 }
-/***BATTLE WINDOW***/
+/***BATTLE WINDOW____start***/
 .battle-window {
     width: 600px;
     height: 300px;
@@ -403,33 +427,92 @@ label{
         line-height: 35px;
     }
 }
+/***BATTLE WINDOW____end***/
+
+/***GAME CREATOR___start***/
 .game-creator {
     position: absolute;
     bottom: 0;
-    margin: 20px;
+    width: 200px;
+    margin: 15px;
     padding: 5px;
     background-color: var(--color-primary);
     border-radius: 10px;
-    text-align: center;
-    color: whitesmoke;
+    color: rgb(195, 195, 195);
     font-size: 16px;
     line-height: 24px;
+}
+.game-creator ul {
+    text-align: left;
+    padding-left: 20px;
+}
+.game-creator p {
+    text-align: center;
 }
 .game-creator a {
     padding: 2px 10px;
     border-radius: 15px;
     background-color: whitesmoke;
+    text-align: center;
     cursor: var(--cursor);
 }
 @media screen and (max-width: 800px) {
     .game-creator{
+        width: 160px;
         font-size: 13px;
         line-height: 20px;
     }
 }
 @media screen and (max-width: 600px) {
     .game-creator{
+        width: 120px;
         font-size: 10px;
         line-height: 16px;
+    }
+}
+/***GAME CREATOR___end***/
+
+/***ERROR UPLOAD__start***/
+.msg-error-upload {
+    position: absolute;
+    bottom: 200px;
+    right: 200px;
+    width: 500px;
+    padding: 20px;
+    background-color: var(--color-secondary);
+    color: var(--color-tertiary);
+    font-size: 25px;
+    text-align: center;
+}
+.msg-error-upload h1 {
+    margin: 5px 50px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px var(--color-tertiary);
+}
+@media screen and (max-width: 1100px) {
+    .msg-error-upload {
+        bottom: 200px;
+        right: 200px;
+        width: 400px;
+        padding: 17px;
+        font-size: 22px;
+    }
+}
+@media screen and (max-width: 800px) {
+    .msg-error-upload {
+        position: initial;
+        margin: 100px auto;
+        width: 350px;
+        padding: 15px;
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .msg-error-upload {
+        position: initial;
+        margin: 100px auto;
+        width: 300px;
+        padding: 10px;
+        font-size: 15px;
     }
 }
