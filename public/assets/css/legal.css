@@ -1,0 +1,120 @@
+:root {
+    --color-primary: #3f3f3fbd;
+    --color-secondary: rgba(0, 0, 0, 0.6);
+    --color-secondary-hover: rgba(0, 0, 0);
+    --color-tertiary: #F5C009;
+    --font-primary: cursive;
+    --cursor: url(../images/sword.cur), pointer;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header
+{
+    background-image: url("../images/wall.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-bottom: 3px solid white;
+    margin-top: -40px;
+    padding: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 270px;
+}
+
+
+h1
+{
+    text-align: center;
+    font-size: 2.6em;
+    color:#313131bd;;
+}
+
+h2
+{
+    font-size: 1.8em;
+}
+
+p
+{
+    font-size: 1.2em;
+}
+
+.box
+{
+    padding: 10px;
+}
+
+.background
+{
+    background-image: url("../images/background_legal.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 500px;
+    text-align: center;
+    padding: 10px;
+}
+
+section
+{
+    padding: 15px;
+}
+
+.wall
+{
+    background-image: url("../images/wall.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 120px;
+    padding-top: 20px;
+}
+
+.button-return {
+    display: block;
+    margin: auto;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: var(--color-primary);
+    color: var(--color-tertiary);
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    text-decoration: none;
+}
+
+.button-return:hover {
+    background-color: var(--color-tertiary);
+    color: var(--color-secondary);
+    cursor: var(--cursor);
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+.anim1 {
+    width: 80px; height: 80px;
+    opacity: 0.8;
+    margin: 3em auto;
+	border: 20px solid rgba(255, 255, 255, 0.87);
+	border-radius: 30px;
+	transition: border-radius 2s, border-color 3s; /* transition quand la souris quitte l'effet */
+}
+
+.anim1 img {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+
+}
+.anim1:hover {
+    border-color: #333;
+    cursor: var(--cursor);
+	transform: rotate(1080deg);
+	border-radius: 50%;
+	transition: all 2s; /* transition quand la souris passe sur l'effet */
+}

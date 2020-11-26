@@ -14,12 +14,6 @@ namespace App\Model;
  */
 class Castle
 {
-    public const POSSIBLE_NAMES = [
-        "Kaamelott",
-        "Barad-dûr",
-        "Winterfell",
-        "Defend the Castle"];
-
     private string $name;
     private int $score;
 
@@ -40,11 +34,7 @@ class Castle
 
     public function setName(string $name): void
     {
-        if (in_array($name, self::POSSIBLE_NAMES)) {
-            $this->name = $name;
-        } else {
-            $this->name = self::POSSIBLE_NAMES[3];
-        }
+        $this->name = $name;
     }
 
     public function getName(): string
