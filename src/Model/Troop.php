@@ -21,6 +21,7 @@ class Troop
     public const LEVEL_MAX = 100;
     public const TIREDNESS_MIN = 0;
     public const TIREDNESS_MAX = 100;
+    public const BONUS = 20;
 
     public function setId(int $id): void
     {
@@ -69,5 +70,18 @@ class Troop
     public function getTiredness(): int
     {
         return $this->tiredness;
+    }
+
+    public static function bonus($enemyName, $troopName)
+    {
+        if (
+            ($enemyName === 'Lancer' && $troopName === 'Archer') ||
+            ($enemyName === 'Horseman' && $troopName === 'Lancer') ||
+            ($enemyName === 'Archer' && $troopName === 'Horseman')
+        ) {
+            return self::BONUS;
+        } else {
+            return 0;
+        }
     }
 }
