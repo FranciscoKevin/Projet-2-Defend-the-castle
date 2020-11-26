@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% block register %}   
+    <body class ="background-login">
+        <div class='container-form'>
+            <form method="post" action="/user/register" accept-charset="UTF-8" class="form">
+                <h3>Welcome</h3>
+                <input id="login" type="text" name="username" placeholder="name" class="input">
+                <input id="login" type="email" name="mail" placeholder="Mail" class="input">
+                <input id="login" type="password" name="password" placeholder="Password" class="input">
+                <input id="login" type="password" name="verifyPassword" placeholder="Verify password" class="input">
+                <input type="submit" value="Submit" class="input" name="submit">
+                <span>You have an account ?<a href='/user/login'>click here</a></span>
+            </form>
+        <div>
+    </body>
+{% endblock %}
