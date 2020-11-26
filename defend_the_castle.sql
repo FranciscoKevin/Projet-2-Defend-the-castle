@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
 --
 -- Host: localhost    Database: defend_the_castle
 -- ------------------------------------------------------
--- Server version	8.0.21-0ubuntu0.20.04.4
+-- Server version	8.0.22-0ubuntu0.20.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,31 @@ LOCK TABLES `castle` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `enemy`
+--
+
+DROP TABLE IF EXISTS `enemy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `enemy` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `strength` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `enemy`
+--
+
+LOCK TABLES `enemy` WRITE;
+/*!40000 ALTER TABLE `enemy` DISABLE KEYS */;
+INSERT INTO `enemy` VALUES (1,'Archer',64);
+/*!40000 ALTER TABLE `enemy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `troop`
 --
 
@@ -60,8 +85,35 @@ CREATE TABLE `troop` (
 
 LOCK TABLES `troop` WRITE;
 /*!40000 ALTER TABLE `troop` DISABLE KEYS */;
-INSERT INTO `troop` VALUES (1,'Archer',72),(2,'Horseman',52),(3,'Lancer',38);
+INSERT INTO `troop` VALUES (1,'Lancer',34),(2,'Archer',47),(3,'Horseman',48);
 /*!40000 ALTER TABLE `troop` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `mail` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `username` varchar(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mail` (`mail`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'wiggum@gnegne.zg','azerty','Wiggum'),(13,'Oncle@oncle.fr','$2y$10$tO6sKWpHCVQBVCVhKWs78eallMiBC3oxwVwk0NwBZ26O9u.tMC9Xi','Oncle'),(14,'H@H.com','$2y$10$yvOAQ1tKB2U/ihWE3sj1Eu/RYP/j9LqNeiSbm.jP1i391R81hoX2m','H');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -73,4 +125,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-28 23:57:35
+-- Dump completed on 2020-11-26 14:58:24
