@@ -1,0 +1,5 @@
+body {
+    background: url(../images/bg-defend-the-castle.png) no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
