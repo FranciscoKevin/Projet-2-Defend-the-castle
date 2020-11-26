@@ -50,4 +50,23 @@ class TroopManager extends SubAbstractManager
         }
         return false;
     }
+
+    public function updateTroop(array $defender)
+    {
+        try {
+            $update = $this->pdo->prepare("UPDATE " . self::TABLE . " SET tiredness = :tiredness, 
+            strength = :strength WHERE id = :id");
+        } catch (PDOException $error) {
+            return false;
+        }
+        if (
+            false !== $update &&
+            false !== $update->bindValue("id", $defender['id'], PDO::PARAM_STR) &&
+            false !== $update->bindValue("tiredness", $defender['tiredness'], PDO::PARAM_INT) &&
+            false !== $update->bindValue("strength", $defender['strength'], PDO::PARAM_INT)
+        ) {
+            return $update->execute();
+        }
+        return false;
+    }
 }

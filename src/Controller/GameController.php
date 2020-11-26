@@ -128,33 +128,46 @@ class GameController extends AbstractController
      * We use the same render as the "play" function, conditional structures allow the display
      * of new information passed to the view.
      */
+
     public function battle(int $id)
     {
-        $defenser = $this->troopManager->selectOneById($id);
+        $defender = $this->troopManager->selectOneById($id);
         $attacker = $this->enemyManager->selectOneById(1);
         $castle = $this->castleManager->selectOneById(1);
-        $scoreBattle = ($defenser["strength"] - $attacker["strength"]) * 2;
-        $newCastleScore = $castle["score"] + $scoreBattle;
-        if ($defenser["strength"] > $attacker["strength"]) {
-            $battleResult = $defenser["name"] . " WIN";
-        } elseif ($defenser["strength"] < $attacker["strength"]) {
-            $battleResult = $defenser["name"] . " LOSE";
+        $defenderAll = $this->troopManager->selectAll();
+        $bonus = Troop::bonus($attacker['name'], $defender['name']);
+
+        if ($defender["strength"] + $bonus > $attacker["strength"]) {
+            $defender["tiredness"] -= random_int(10, 25);
+            $battleResult = $defender["name"] . " WIN";
+        } elseif ($defender["strength"] + $bonus < $attacker["strength"]) {
+                $defender["tiredness"] -= ($attacker["strength"] / 2);
+                $battleResult = $defender["name"] . " LOOSE";
         } else {
             $battleResult = "DRAW";
         }
+        $scoreBattle = (($defender["strength"] + $bonus) - $attacker["strength"]) * 2;
+        $newCastleScore = $castle["score"] + $scoreBattle;
+        foreach ($defenderAll as $soldier) {
+            if ($soldier['id'] !== $defender['id']) {
+                $soldier['tiredness'] += 10;
+                $soldier['strength'] += 1;
+                if ($soldier['tiredness'] > 100) {
+                    $soldier['tiredness'] = 100;
+                }
+                $this->troopManager->updateTroop($soldier);
+            }
+        }
+        if ($defender['tiredness'] < 0) {
+            $defender['tiredness'] = 0;
+        }
+        $this->troopManager->updateTroop($defender);
         $this->castleManager->deleteAll();
         $castle["score"] = $newCastleScore;
         $this->castleManager->updateScore($castle);
         $this->enemyManager->deleteAll();
-        $troops = $this->troopManager->selectAll();
-        return $this->twig->render(
-            "Game/troop.html.twig",
-            ["troops" => $troops,
-            "attacker" => $attacker,
-            "castle" => $castle,
-            "battleResult" => $battleResult,
-            "scoreBattle" => $scoreBattle]
-        );
+        return $this->twig->render("Game/troop.html.twig", [
+        "castle" => $castle, "battleResult" => $battleResult, "scoreBattle" => $scoreBattle]);
     }
 
     /**

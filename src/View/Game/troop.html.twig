@@ -70,6 +70,11 @@
     </div>
     {% endif %}
     <!--CARDS DEFENSERS-->
+    <ul>
+    {% for troop in troops %}
+        <li><h3>{{ troop.name }} : {{ troop.tiredness }}</h3></li>
+    {% endfor %}
+    </ul>
     <div class="container-defensers">
         {% for troop in troops %}
             <a href="/game/battle/{{ troop.id }}">
