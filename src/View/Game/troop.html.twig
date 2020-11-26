@@ -18,10 +18,9 @@
             <p class="item-header castle-name">{{ castle.name }}</p>
         </div>
     </div>
-    </div>
     <!--BATTLE-->
     {% if battleResult is defined %}
-    <div class="battle-window">
+    <div class="message msg-battle-window">
         {% if scoreBattle > 0 %}
             <h1 class="win">{{ battleResult }}</h1>
             <h3 class="win">+{{ scoreBattle }}<h3>
@@ -34,6 +33,40 @@
         <form method="POST" action="/game/play">
             <input type="submit" value="Next battle" id="button-battle">
         </form>
+    </div>
+    {% endif %}
+    <!--ERROR UPLOAD BACKGROUND-->
+    {% if castleBackground is defined %}
+    <div class="msg-error-upload">
+        <h1>Upload error</h1>
+        {% if files["bg-castle-upload"]["error"] == 1 %}
+            <h3>The size of the photo exceeds the maximum authorized size of 2 Mo</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif files["bg-castle-upload"]["error"] == 2 %}
+            <h3>The size of the photo exceeds the maximum authorized size of 2 Mo</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif files["bg-castle-upload"]["error"] == 3 %}
+            <h3>The file was only partially downloaded</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif files["bg-castle-upload"]["error"] == 4 %}
+            <h3>File has not been downloaded</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif files["bg-castle-upload"]["error"] == 6 %}
+            <h3>A temporary folder is missing</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif files["bg-castle-upload"]["error"] == 7 %}
+            <h3>Failed to write file to disk</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif files["bg-castle-upload"]["error"] == 8 %}
+            <h3>A PHP extension has stopped sending files</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% elseif castleBackground == "error type file" %}
+            <h3>The extension of the photo is not allowed</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% else %}
+            <h3>An indeterminate error has occurred</h3>
+            <h3>Reset a new castle with the restart button in the menu</h3>
+        {% endif %}
     </div>
     {% endif %}
     <!--CARDS DEFENSERS-->

@@ -38,18 +38,60 @@ class GameController extends AbstractController
     }
 
     /**
-     * This method initialize the game by creating the defensive troops and the castle.
-     * The properties of the troops and the castle are recorded in their respective databases.
+     * This method is used to initialize the castle.
+     * The properties of the castle are then recorded in the database.
      * This method returns a string and does a redirect.
      */
-    public function init(): string
+    public function initCastle(): string
     {
-        if (false === $this->troopManager->deleteAll()) {
+        if (false === $this->castleManager->deleteAll()) {
+            header("HTTP/1.1 503 Service Unavailable");
+            return $this->twig->render("Error/503.html.twig");
+        }
+        $castle = new Castle();
+        $castle->resetScore();
+        if (filter_has_var(INPUT_POST, "castle")) {
+            $castle->setName($_POST["castle"]);
+        } elseif (
+            filter_has_var(INPUT_POST, "my-castle") &&
+            $_POST["my-castle"] != ""
+        ) {
+            $castle->setName($_POST["my-castle"]);
+        } else {
+            $castle->setName("Defend the Castle");
+        }
+        if (false === $this->castleManager->insert($castle)) {
             header("HTTP/1.1 503 Service Unavailable");
             return $this->twig->render("Error/503.html.twig");
         }
 
-        if (false === $this->enemyManager->deleteAll()) {
+        $castleBackground = $this->castleManager->uploadBackground();
+        $files = $_FILES;
+        if (
+            $castleBackground === "error upload" ||
+            $castleBackground === "error type file"
+        ) {
+            return $this->twig->render(
+                "Game/troop.html.twig",
+                ["castleBackground" => $castleBackground,
+                "files" => $files]
+            );
+        }
+        header('Location: /game/initTroop');
+        return "";
+    }
+
+    /**
+     * This method is used to initialize the troops.
+     * The properties of the troop are then recorded in the database.
+     * This method returns a string and does a redirect.
+     */
+    public function initTroop(): string
+    {
+        if (
+            false === $this->troopManager->deleteAll() ||
+            false === $this->enemyManager->deleteAll()
+        ) {
             header("HTTP/1.1 503 Service Unavailable");
             return $this->twig->render("Error/503.html.twig");
         }
@@ -74,20 +116,6 @@ class GameController extends AbstractController
                 return $this->twig->render("Error/503.html.twig");
             }
         }
-
-        $this->castleManager->deleteAll();
-        $castle = new Castle();
-        $castle->resetScore();
-        if (isset($_POST["castle"])) {
-            $castle->setName($_POST["castle"]);
-        } else {
-            $castle->setName("Defend the Castle");
-        }
-        if (false === $this->castleManager->insert($castle)) {
-            header("HTTP/1.1 503 Service Unavailable");
-            return $this->twig->render("Error/503.html.twig");
-        }
-
         header('Location: /game/play');
         return "";
     }
@@ -119,8 +147,14 @@ class GameController extends AbstractController
         $this->castleManager->updateScore($castle);
         $this->enemyManager->deleteAll();
         $troops = $this->troopManager->selectAll();
-        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "attacker" => $attacker,
-        "castle" => $castle, "battleResult" => $battleResult, "scoreBattle" => $scoreBattle]);
+        return $this->twig->render(
+            "Game/troop.html.twig",
+            ["troops" => $troops,
+            "attacker" => $attacker,
+            "castle" => $castle,
+            "battleResult" => $battleResult,
+            "scoreBattle" => $scoreBattle]
+        );
     }
 
     /**
@@ -145,8 +179,13 @@ class GameController extends AbstractController
         }
         $troops = $this->troopManager->selectAll();
         $castle = $this->castleManager->selectOneById(1);
-        return $this->twig->render("Game/troop.html.twig", ["troops" => $troops, "enemy" => $enemy,
-        "castle" => $castle]);
+
+        return $this->twig->render(
+            "Game/troop.html.twig",
+            ["troops" => $troops,
+            "enemy" => $enemy,
+            "castle" => $castle]
+        );
     }
 
     public function rules(): string

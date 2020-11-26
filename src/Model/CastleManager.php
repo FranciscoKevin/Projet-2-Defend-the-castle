@@ -71,4 +71,51 @@ class CastleManager extends SubAbstractManager
         }
         return false;
     }
+
+    /**
+     * This method allows you to add a custom background to the game.
+     * It returns a string which allows you to define the status of the return: no upload file,
+     * error upload or error type file.
+     */
+    public function uploadBackground(): string
+    {
+        $uploadDir = "upload/";
+        $allowed = [
+            "jpg" => "image/jpg",
+            "jpeg" => "image/jpeg",
+            "gif" => "image/gif",
+            "png" => "image/png"
+        ];
+        if (
+            $_SERVER["REQUEST_METHOD"] == "POST" &&
+            $_FILES["bg-castle-upload"]["name"] != ""
+        ) {
+            if (
+                isset($_FILES["bg-castle-upload"]) &&
+                $_FILES["bg-castle-upload"]["error"] === 0
+            ) {
+                $filename = $_FILES["bg-castle-upload"]["name"];
+                $filesize = $_FILES["bg-castle-upload"]["size"];
+                $extension = pathinfo($filename, PATHINFO_EXTENSION);
+                if (!array_key_exists($extension, $allowed)) {
+                    return "error type file";
+                }
+                $uploadFile = $uploadDir . "bg-castle-upload." . $extension;
+                if (file_exists($uploadFile)) {
+                    unlink($uploadFile);
+                }
+                $uploadFile = $uploadDir . "bg-castle-upload.png";
+                $maxsize = 2000000;
+                if ($filesize > $maxsize) {
+                    return "error upload";
+                }
+                move_uploaded_file($_FILES["bg-castle-upload"]["tmp_name"], $uploadFile);
+                return "upload ok";
+            } else {
+                return "error upload";
+            }
+        } else {
+            return "no file upload";
+        }
+    }
 }
