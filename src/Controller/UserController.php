@@ -19,28 +19,28 @@ class UserController extends AbstractController
             // Vérification du nom
             if (empty($name)) {
                 $valid = false;
-                $nameError = "Enter your blaze";
+                $nameError = "Empty Name";
                 echo $nameError;
             }
             // Vérification du mail
             if (empty($mail)) {
                 $valid = false;
-                $mailError = "Le mail ne peut pas être vide";
+                $mailError = "Empty Mail";
                 echo $mailError;
             } elseif (!preg_match("/^[a-z0-9\-_.]+@[a-z]+\.[a-z]{2,3}$/i", $mail)) {
                 $valid = false;
-                $mailError = "Le mail n'est pas valide";
+                $mailError = "mail don't valide";
                 echo $mailError;
             }
 
             // Vérification du mdp
             if (empty($password)) {
                 $valid = false;
-                $passError = "Le mot de passe ne peut pas être vide";
+                $passError = "Empty Password";
                 echo $passError;
             } elseif ($password != $confPass) {
                 $valid = false;
-                $passError = "La confirmation du mot de passe ne correspond pas";
+                $passError = "passwords do not match";
                 echo $passError;
             }
             // Si toutes les conditions sont remplies alors on fait le traitement
@@ -69,26 +69,26 @@ class UserController extends AbstractController
             $password = trim($_POST['password']);
             if (empty($mail)) {
                 $valid = false;
-                $mailError = "Le mail ne peut pas être vide";
+                $mailError = "Empty Mail";
                 echo $mailError;
             } elseif (!preg_match("/^[a-z0-9\-_.]+@[a-z]+\.[a-z]{2,3}$/i", $mail)) {
                 $valid = false;
-                $mailError = "Le mail n'est pas valide";
+                $mailError = "mail don't valide";
                 echo $mailError;
             }
             if (empty($password)) {
                 $valid = false;
-                $passError = "Le mot de passe ne peut pas être vide";
+                $passError = "Empty Password";
                 echo $passError;
             }
             if ($valid) {
                 $userLog = new UserManager();
                 $results = $userLog->findUser($mail);
                 if (empty($results)) {
-                    return $this->twig->render("Error/503.html.twig", ['errormsg' => "Ce compte n'existe pas."]);
+                    echo "This account don't exist";
                 } else {
                     if (!password_verify($password, $results[0]['password'])) {
-                        return $this->twig->render("Error/503.html.twig", ['errormsg' => "Mauvais mot de passe pélo"]);
+                        echo "Wrong password";
                     } else {
                         header('Location: /game/play');
                     }
