@@ -1,5 +1,5 @@
 :root {
-    --color-primary: #3f3f3fbd;
+    --color-primary: #312d2dbd;
     --color-secondary: rgba(0, 0, 0, 0.6);
     --color-secondary-hover: rgba(0, 0, 0);
     --color-tertiary: #F5C009;
@@ -12,11 +12,12 @@ body
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    color: white;
 }
 
 header
 {
-    background-image: url("../images/wall.png");
+    background-image: url("../images/wood.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     border-bottom: 3px solid white;
@@ -31,23 +32,22 @@ header
 h1
 {
     text-align: center;
-    font-size: 2.6em;
-    color:#313131bd;;
+    font-size: 2.8em;
 }
 
 h2
 {
-    font-size: 1.8em;
+    font-size: 2.2em;
 }
 
 p
 {
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
 .box
 {
-    padding: 10px;
+    padding: 12px;
 }
 
 .background
@@ -63,16 +63,12 @@ p
 section
 {
     padding: 15px;
-}
-
-.wall
-{
-    background-image: url("../images/wall.png");
+    background-image: url("../images/wood.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    height: 120px;
-    padding-top: 20px;
+    border-top: 3px solid white;
 }
+
 
 .button-return {
     display: block;
@@ -98,7 +94,6 @@ section
 
 .anim1 {
     width: 80px; height: 80px;
-    opacity: 0.8;
     margin: 3em auto;
 	border: 20px solid rgba(255, 255, 255, 0.87);
 	border-radius: 30px;
