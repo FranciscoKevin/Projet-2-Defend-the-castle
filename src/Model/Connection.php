@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Database connection
  *
@@ -11,7 +12,7 @@
 
 namespace App\Model;
 
-use \PDO;
+use PDO;
 
 /**
  *
@@ -66,6 +67,7 @@ class Connection
             $this->pdoConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
             // show errors in DEV environment
+            /** @phpstan-ignore-next-line */
             if (APP_DEV) {
                 $this->pdoConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }

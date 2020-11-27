@@ -1,0 +1,5 @@
+body {
+    background: url(../images/bg-castlevania.jpg) no-repeat center fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
