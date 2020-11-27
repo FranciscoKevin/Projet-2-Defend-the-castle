@@ -105,7 +105,7 @@ class GameController extends AbstractController
         $troops[1]->setRandomStrength();
         $troops[1]->resetTiredness();
         $troops[2] = new Troop();
-        $troops[2]->setName("Lancer");
+        $troops[2]->setName("Knight");
         $troops[2]->setRandomStrength();
         $troops[2]->resetTiredness();
         shuffle($troops);
@@ -121,37 +121,104 @@ class GameController extends AbstractController
     }
 
     /**
-     * This method makes it possible to manage the combats between defense and attack.
-     * As input, the method takes as argument the id of the selected defense.
-     * This makes it possible to recover the defense in the database.
-     * Depending on the result of the fight, the castle score is recalculated and sent to the database.
-     * We use the same render as the "play" function, conditional structures allow the display
-     * of new information passed to the view.
+     * This method allows you to select the defender for the battle.
+     * and to record in the session the various data of the database necessary for the battle
+     * and for the other functions thereafter
      */
-
-    public function battle(int $id)
+    public function selectDefender(int $id)
     {
-        $defender = $this->troopManager->selectOneById($id);
-        $attacker = $this->enemyManager->selectOneById(1);
+        /*** Entrances ***/
         $castle = $this->castleManager->selectOneById(1);
         $defenderAll = $this->troopManager->selectAll();
-        $bonus = Troop::bonus($attacker['name'], $defender['name']);
+        $defender = $this->troopManager->selectOneById($id);
+        $attacker = $this->enemyManager->selectOneById(1);
+        /*** Recoreding in session ***/
+        $_SESSION["data"]["castle"] = $castle;
+        $_SESSION["data"]["defenderAll"] = $defenderAll;
+        $_SESSION["data"]["defender"] = $defender;
+        $_SESSION["data"]["attacker"] = $attacker;
+        /*** Treatment ***/
+        $battleOrNot = true;
+        /*** Output ***/
+        return $this->twig->render(
+            "Game/troop.html.twig",
+            ["castle" => $castle,
+            "defenderAll" => $defenderAll,
+            "defender" => $defender,
+            "attacker" => $attacker,
+            "battleOrNot" => $battleOrNot]
+        );
+    }
 
-        if ($defender["strength"] + $bonus > $attacker["strength"]) {
-            $defender["tiredness"] -= random_int(10, 25);
-            $battleResult = $defender["name"] . " WIN";
-        } elseif ($defender["strength"] + $bonus < $attacker["strength"]) {
-                $defender["tiredness"] -= ($attacker["strength"] / 2);
-                $battleResult = $defender["name"] . " LOOSE";
+    /**
+     * This method allows to know the winner of the battle
+     * and saves the data in the session
+     */
+    public function battle()
+    {
+        /*** Entrances ***/
+        $castle = $_SESSION["data"]["castle"];
+        $defenderAll = $_SESSION["data"]["defenderAll"];
+        $defender = $_SESSION["data"]["defender"];
+        $attacker = $_SESSION["data"]["attacker"];
+        /*** Treatment ***/
+        $battle = [];
+        $bonus = Troop::bonus($attacker['name'], $defender['name']);
+        $tirednessImpact = Troop::tirednessImpact($defender["tiredness"]);
+        if ($defender["strength"] + $bonus - $tirednessImpact > $attacker["strength"]) {
+            $battle["score"] = ($defender["strength"] + $bonus - $tirednessImpact) - $attacker["strength"];
+            $battle["result"] = $defender["name"] . " WIN";
+        } elseif ($defender["strength"] + $bonus - $tirednessImpact < $attacker["strength"]) {
+            $battle["score"] = ($defender["strength"] + $bonus - $tirednessImpact) - $attacker["strength"];
+            $battle["result"] = $defender["name"] . " LOSE";
         } else {
-            $battleResult = "DRAW";
+            $battle["score"] = 0;
+            $battle["result"] = "DRAW";
         }
-        $scoreBattle = (($defender["strength"] + $bonus) - $attacker["strength"]) * 2;
-        $newCastleScore = $castle["score"] + $scoreBattle;
+        $battleFought = true;
+        /*** Recoreding in session ***/
+        $_SESSION["data"]["defender"] = $defender;
+        $_SESSION["data"]["attacker"] = $attacker;
+        $_SESSION["data"]["battle"] = $battle;
+        /*** Output ***/
+        return $this->twig->render(
+            "Game/troop.html.twig",
+            ["castle" => $castle,
+            "defenderAll" => $defenderAll,
+            "defender" => $defender,
+            "attacker" => $attacker,
+            "battle" => $battle,
+            "battleFought" => $battleFought]
+        );
+    }
+
+    /**
+     * This method makes it possible to change the score of the castle
+     * and to record the data in the database
+     * This method makes it possible to calculate the fatigue of the troops according
+     * to the result of the battle and to record the data in the database
+     */
+    public function updateScore()
+    {
+        /*** Entrances ***/
+        $castle = $_SESSION["data"]["castle"];
+        $defenderAll = $_SESSION["data"]["defenderAll"];
+        $defender = $_SESSION["data"]["defender"];
+        $battle = $_SESSION["data"]["battle"];
+        /*** Treatment ***/
+        $newCastleScore = $castle["score"] + $battle["score"];
+        $castle["score"] = $newCastleScore;
+        $this->castleManager->deleteAll();
+        $this->castleManager->updateScore($castle);
+        /*** Treatment ***/
+        if ($battle["score"] > 0) {
+            $defender["tiredness"] -= random_int(0, 10);
+        } else {
+            $defender["tiredness"] -= random_int(15, 25);
+        }
         foreach ($defenderAll as $soldier) {
             if ($soldier['id'] !== $defender['id']) {
                 $soldier['tiredness'] += 10;
-                $soldier['strength'] += 1;
                 if ($soldier['tiredness'] > 100) {
                     $soldier['tiredness'] = 100;
                 }
@@ -162,12 +229,10 @@ class GameController extends AbstractController
             $defender['tiredness'] = 0;
         }
         $this->troopManager->updateTroop($defender);
-        $this->castleManager->deleteAll();
-        $castle["score"] = $newCastleScore;
-        $this->castleManager->updateScore($castle);
         $this->enemyManager->deleteAll();
-        return $this->twig->render("Game/troop.html.twig", [
-        "castle" => $castle, "battleResult" => $battleResult, "scoreBattle" => $scoreBattle]);
+        /*** Output ***/
+        header('Location: /game/play');
+        return "";
     }
 
     /**
@@ -190,12 +255,12 @@ class GameController extends AbstractController
             }
             $enemy->setId($id);
         }
-        $troops = $this->troopManager->selectAll();
+        $defenderAll = $this->troopManager->selectAll();
         $castle = $this->castleManager->selectOneById(1);
 
         return $this->twig->render(
             "Game/troop.html.twig",
-            ["troops" => $troops,
+            ["defenderAll" => $defenderAll,
             "enemy" => $enemy,
             "castle" => $castle]
         );
@@ -210,7 +275,7 @@ class GameController extends AbstractController
     {
         return $this->twig->render('Game/faq.html.twig');
     }
-  
+
     public function legal(): string
     {
         return $this->twig->render("Game/legal.html.twig");

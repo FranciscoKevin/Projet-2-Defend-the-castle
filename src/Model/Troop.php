@@ -16,12 +16,12 @@ class Troop
     private int $strength;
     private int $tiredness;
 
-    public const NAMES = ["Archer", "Horseman", "Lancer"];
+    public const NAMES = ["Archer", "Horseman", "Knight"];
     public const LEVEL_MIN = 20;
     public const LEVEL_MAX = 100;
     public const TIREDNESS_MIN = 0;
     public const TIREDNESS_MAX = 100;
-    public const BONUS = 20;
+    public const BONUS = 30;
 
     public function setId(int $id): void
     {
@@ -75,13 +75,28 @@ class Troop
     public static function bonus($enemyName, $troopName)
     {
         if (
-            ($enemyName === 'Lancer' && $troopName === 'Archer') ||
-            ($enemyName === 'Horseman' && $troopName === 'Lancer') ||
+            ($enemyName === 'Knight' && $troopName === 'Archer') ||
+            ($enemyName === 'Horseman' && $troopName === 'Knight') ||
             ($enemyName === 'Archer' && $troopName === 'Horseman')
         ) {
             return self::BONUS;
         } else {
             return 0;
         }
+    }
+
+    public static function tirednessImpact($tiredness)
+    {
+        switch ($tiredness) {
+            case ">= 80":
+                $tirednessImpact = 10;
+                break;
+            case ">= 50":
+                $tirednessImpact = 25;
+                break;
+            default:
+                $tirednessImpact = 40;
+        }
+        return $tirednessImpact;
     }
 }

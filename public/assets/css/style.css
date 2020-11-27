@@ -30,11 +30,11 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    transition: bottom 1s ease-in;
+    transition: bottom 0.5s ease-in-out;
 }
 
 .defensers:hover {
-    bottom: 160px;
+    bottom: 100px;
     cursor: var(--cursor);
 }
 .img-card {
@@ -42,26 +42,6 @@ body {
     max-height: 100%;
     border-radius: 10px;
 }
-
-@keyframes slide{
-    from {
-      top: -80px;
-    }
-    to {
-        top: 40px;
-      }
-    }
-
-.attacker{
-    position: relative;
-    top: -80px;
-    animation-name: slide;
-    animation-timing-function: ease-in-out;
-    animation-duration: 2s;
-    animation-delay: 2s;
-    animation-fill-mode: forwards;
-}
-
 /***HEADER***/
 .header {
     display: grid;
@@ -92,16 +72,26 @@ body {
 @media screen and (max-width: 600px) {
     .item-header {
         font-size: 12px;
+        line-height: 25px;
     }
 }
 /***HEADER: second block***/
 .attacker {
     position: relative;
-    top: -150px;
+    top: 0px;
     height: 250px;
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
+}
+.attacker h4 {
+    position: absolute;
+    text-align: center;
+    bottom: 0;
+    z-index: 10;
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: var(--color-tertiary);
 }
 /***BUTTONS DESIGN___START***/
 .button {
@@ -250,7 +240,7 @@ label{
 /***MESSAGES___START***/
 .message {
     width: 600px;
-    margin: 50px auto;
+    margin: 150px auto 10px;
     padding: 10px;
     background-color: var(--color-secondary-hover);
     border: 2px solid var(--color-tertiary);
@@ -530,5 +520,40 @@ label{
         width: 300px;
         padding: 10px;
         font-size: 15px;
+    }
+}
+
+.message-decision {
+    display: flex;
+    align-items: center;
+    width: 360px;
+    height: 100px;
+    margin: 5px auto;
+    padding: 14px;
+    background-color: whitesmoke;
+    border-radius: 100px;
+    color: var(--color-secondary);
+    font-size: 20px;
+    text-align: center;
+}
+.message-decision img {
+    max-width: 100%;
+    height: 100%;
+    border-radius: 100px;
+}
+@media screen and (max-width: 800px) {
+    .message-decision {
+        width: 320px;
+        height: 80px;
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .message-decision {
+        width: 280px;
+        height: 60px;
+        padding: 10px;
+        font-size: 12px;
     }
 }
